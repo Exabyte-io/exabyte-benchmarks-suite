@@ -1,5 +1,6 @@
 #!/usr/bin/python
 
+import sys
 import glob
 import utils
 import shutil
@@ -38,12 +39,9 @@ class RunTestStructure:
         """
             Prepares the directory structure and input files depending on user input
         """
-        try:
+        if os.path.isdir(self.destination):
             shutil.rmtree(self.destination)
-            shutil.copytree(self.origin, self.destination, symlinks=True, ignore=None)
-        except:
-            print "Warning: exception during dir structure prep:\n {} to {}".format(self.origin, self.destination)
-            pass
+        shutil.copytree(self.origin, self.destination, symlinks=True, ignore=None)
 
         if self.application == 'vasp':
             self.prepare_pseudo_vasp()
@@ -56,8 +54,10 @@ class RunTestStructure:
         """
         Concatenates files available at paths specified in a file into one POTCAR file
         """
-        print self.origin
         paths = utils.read_file_lines(os.path.join(self.origin, 'POTCAR.paths'))
+        for path in paths:
+            if not os.path.exists(path):
+                raise ValueError('Path {} not found'.format(path))
         with open(os.path.join(self.destination, 'POTCAR'), 'w') as potcar:
             potcar.writelines(fileinput.input(paths))
 
