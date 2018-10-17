@@ -1,10 +1,6 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-*$py.class
-
-.idea
-.idea/*
 
 # C extensions
 *.so
@@ -45,8 +41,6 @@ htmlcov/
 .cache
 nosetests.xml
 coverage.xml
-*,cover
-.hypothesis/
 
 # Translations
 *.mo
@@ -54,42 +48,16 @@ coverage.xml
 
 # Django stuff:
 *.log
-local_settings.py
-
-# Flask stuff:
-instance/
-.webassets-cache
-
-# Scrapy stuff:
-.scrapy
 
 # Sphinx documentation
 docs/_build/
 
 # PyBuilder
 target/
+# PyCharm
+.idea/
 
-# IPython Notebook
-.ipynb_checkpoints
+# MacOS X
+.DS_Store
 
-# pyenv
-.python-version
-
-# celery beat schedule file
-celerybeat-schedule
-
-# dotenv
-.env
-
-# virtualenv
-venv/
-ENV/
-
-# Spyder project settings
-.spyderproject
-
-# Rope project settings
-.ropeproject
-
-# ignore default working directory for tests run
-workdir
+*.pbs
