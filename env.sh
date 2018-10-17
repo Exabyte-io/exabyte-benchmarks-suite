@@ -5,13 +5,9 @@ QUEUE="OF"
 CORES_PER_NODE="16"
 EMAIL="mohammad@exabyte.io"
 
-# HPL
-HPL_BINARY_PATH="./xhpl"
-
-# NETWORK
-IMB_MPI1="./IMB-MPI1"
-
 # MODULES
+HPL_MODULE="hpl"
+IMB_MODULE="imb"
 INTEL_MODULE="intel/i-174"
 MKL_MODULE="mkl/i-174"
 MPI_MODULE="mpi/impi-044"

@@ -21,10 +21,10 @@ cat > job.pbs << EOF
 #PBS -m abe
 #PBS -M ${EMAIL}
 
-module add ${INTEL_MODULE} ${MKL_MODULE} ${MPI_MODULE}
+module add ${HPL_MODULE}
 
 cd \${PBS_O_WORKDIR}
-mpirun -np \${PBS_NP} ${HPL_BINARY_PATH} &> HPL.log
+mpirun -np \${PBS_NP} xhpl &> HPL.log
 
 EOF
 

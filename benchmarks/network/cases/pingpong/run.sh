@@ -14,10 +14,10 @@ cat > job.pbs << EOF
 #PBS -m abe
 #PBS -M ${EMAIL}
 
-module add ${INTEL_MODULE} ${MKL_MODULE} ${MPI_MODULE}
+module add ${IMB_MODULE}
 
 cd \${PBS_O_WORKDIR}
-mpirun -np \${PBS_NP} ${IMB_MPI1} pingpong > pingpong.out
+mpirun -np \${PBS_NP} IMB-MPI1 pingpong > pingpong.out
 
 EOF
 
