@@ -59,6 +59,3 @@ target/
 
 # MacOS X
 .DS_Store
-
-*.rms
-*.dat

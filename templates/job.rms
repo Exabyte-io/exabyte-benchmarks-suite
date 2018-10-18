@@ -1,4 +1,4 @@
-RMS_TEMPLATE = """#!/bin/bash
+#!/bin/bash
 
 #pbs -n {{ NAME }}
 #pbs -j oe
@@ -12,7 +12,9 @@ RMS_TEMPLATE = """#!/bin/bash
 module add {{ MODULE }}
 cd $PBS_O_WORKDIR
 
-{{ SHARED_COMMAND }}
+# enable the following env variables on IB nodes
+# export I_MPI_FABRICS=shm:dapl
+# export I_MPI_DAPL_PROVIDER=ofa-v2-cma-roe-enp94s0f0
+# export I_MPI_DYNAMIC_CONNECTION=0
 
 {{ COMMAND }}
-"""

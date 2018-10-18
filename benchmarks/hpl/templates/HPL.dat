@@ -1,4 +1,4 @@
-HPL_TEMPLATE = """HPLinpack benchmark input file
+HPLinpack benchmark input file
 Innovative Computing Laboratory, University of Tennessee
 HPL.out      output file name (if any) 
 6            device out (6=stdout,7=stderr,file)
@@ -29,4 +29,3 @@ HPL.out      output file name (if any)
 0            U  in (0=transposed,1=no-transposed) form
 1            Equilibration (0=no,1=yes)
 8            memory alignment in double (> 0)
-"""

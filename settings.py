@@ -1,8 +1,7 @@
-from templates.hpl import HPL_TEMPLATE
-
-BENCHMARKS_DIR = "benchmarks"
 CASES_DIR = "cases"
 JOB_NAME = "job.rms"
+BENCHMARKS_DIR = "benchmarks"
+JOB_TEMPLATE = "templates/job.rms"
 
 # RMS
 PPN = 36
@@ -22,11 +21,12 @@ ESPRESSO_MODULE = "espresso/540-i-174-impi-044"
 GROMACS_MODULE = "gromacs/514-i-174-impi-044-md"
 GROMACS_GPU_MODULE = "gromacs/20183-i-174-impi-044-gms"
 
-SHARED_COMMAND = """
-# export I_MPI_FABRICS=shm:dapl
-# export I_MPI_DAPL_PROVIDER=ofa-v2-cma-roe-enp94s0f0
-# export I_MPI_DYNAMIC_CONNECTION=0
-"""
+GENERAL_CONFIG = {
+    "QUEUE": QUEUE,
+    "WALLTIME": WALLTIME,
+    "NOTIFY": NOTIFY,
+    "EMAIL": EMAIL,
+}
 
 
 def get_hpl_config(nodes, n, nb, p, q, prefix="hpl"):
@@ -34,10 +34,6 @@ def get_hpl_config(nodes, n, nb, p, q, prefix="hpl"):
         "NAME": "-".join((prefix, str(nodes))),
         "NODES": nodes,
         "PPN": PPN,
-        "QUEUE": QUEUE,
-        "WALLTIME": WALLTIME,
-        "NOTIFY": NOTIFY,
-        "EMAIL": EMAIL,
         "MODULE": HPL_MODULE,
         "N": n,
         "NB": nb,
@@ -47,7 +43,38 @@ def get_hpl_config(nodes, n, nb, p, q, prefix="hpl"):
         "INPUTS": [
             {
                 "NAME": "HPL.dat",
-                "TEMPLATE": HPL_TEMPLATE
+                "TEMPLATE": "templates/HPL.dat"
+            }
+        ]
+    }
+
+
+def get_vasp_elb_config(nodes, prefix="elb"):
+    return {
+        "NAME": "-".join((prefix, str(nodes))),
+        "NODES": nodes,
+        "PPN": PPN,
+        "MODULE": HPL_MODULE,
+        "COMMAND": """
+            cp /export/share/pseudo/si/gga/pbe/vasp/5.2/paw/default/POTCAR POTCAR
+            mpirun -np $PBS_NP vasp &> elb-`date +'%s'`.log
+        """,
+        "kgrid": {
+            "dimensions": [1, 1, 2],
+            "shifts": [0, 0, 0],
+        },
+        "INPUTS": [
+            {
+                "NAME": "INCAR",
+                "TEMPLATE": "templates/ELB-INCAR"
+            },
+            {
+                "NAME": "POSCAR",
+                "TEMPLATE": "POSCARS/Ba25Bi15O54"
+            },
+            {
+                "NAME": "KPOINTS",
+                "TEMPLATE": "templates/KPOINTS"
             }
         ]
     }
@@ -65,15 +92,16 @@ BENCHMARKS = {
             "NAME": "pingpong",
             "NODES": 2,
             "PPN": PPN,
-            "QUEUE": QUEUE,
-            "WALLTIME": WALLTIME,
-            "NOTIFY": NOTIFY,
-            "EMAIL": EMAIL,
             "MODULE": IMB_MODULE,
             "COMMAND": "mpirun -np $PBS_NP IMB-MPI1 pingpong > pingpong.out",
         }
     ],
-    "vasp": [],
+    "vasp": [
+        get_vasp_elb_config(1),
+        get_vasp_elb_config(2),
+        get_vasp_elb_config(4),
+        get_vasp_elb_config(8),
+    ],
     "gromacs": [],
     "espresso": [],
 }

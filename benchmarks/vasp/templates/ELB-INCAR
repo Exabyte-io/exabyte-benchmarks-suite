@@ -1,0 +1,13 @@
+ALGO = Normal
+EDIFF = 0.0001
+ENCUT = 520
+ISIF = 3
+ISMEAR = 0
+SIGMA = 0.05
+ISPIN = 1
+LREAL = Auto
+NELM = 10
+PREC = Low
+# Parallelism
+NCORE = 1
+LPLANE = .TRUE.
