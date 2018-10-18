@@ -3,7 +3,7 @@ from settings import VASP_MODULE, VASP_VERSION
 
 def get_vasp_elb_config(nodes, ppn, prefix="elb"):
     return {
-        "NAME": "-".join((prefix, str(nodes), str(ppn))),
+        "NAME": "-".join((prefix, "{0:0=2d}".format(nodes), "{0:0=2d}".format(ppn))),
         "NODES": nodes,
         "PPN": ppn,
         "MODULE": VASP_MODULE,

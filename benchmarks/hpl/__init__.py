@@ -1,9 +1,9 @@
-from settings import PPN, HPL_MODULE
+from settings import HPL_MODULE
 
 
 def get_hpl_config(nodes, n, nb, p, q, prefix="hpl"):
     return {
-        "NAME": "-".join((prefix, str(nodes))),
+        "NAME": "-".join((prefix, "{0:0=2d}".format(nodes))),
         "NODES": nodes,
         "MODULE": HPL_MODULE,
         "N": n,
