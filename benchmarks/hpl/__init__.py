@@ -20,6 +20,9 @@ def get_hpl_config(nodes, n, nb, p, q, prefix="hpl"):
     }
 
 
+# You can get HPL params from
+#   - http://www.advancedclustering.com/act_kb/tune-hpl-dat-file
+#   - http://hpl-calculator.sourceforge.net/
 HPL_CASES = [
     get_hpl_config(1, 200448, 192, 6, 6),
     get_hpl_config(2, 283776, 192, 8, 9),
