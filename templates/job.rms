@@ -2,12 +2,14 @@
 
 #PBS -n {{ NAME }}
 #PBS -j oe
+#PBS -R n
+#PBS -r n
 #PBS -l nodes={{ NODES }}
 #PBS -l ppn={{ PPN }}
 #PBS -q {{ QUEUE }}
 #PBS -l walltime={{ WALLTIME }}
 #PBS -m {{ NOTIFY }}
-#PBS -m {{ EMAIL }}
+#PBS -M {{ EMAIL }}
 
 module add {{ MODULE }}
 cd $PBS_O_WORKDIR
