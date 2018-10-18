@@ -17,4 +17,9 @@ cd $PBS_O_WORKDIR
 # export I_MPI_DAPL_PROVIDER=ofa-v2-cma-roe-enp94s0f0
 # export I_MPI_DYNAMIC_CONNECTION=0
 
+start=`date +%s`
+
 {{ COMMAND }}
+
+end=`date +%s`
+echo $((end-start)) > {{ RUNTIME_FILE }}
