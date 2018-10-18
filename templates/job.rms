@@ -1,12 +1,12 @@
 #!/bin/bash
 
-#PBS -n {{ NAME }}
+#PBS -N {{ NAME }}
 #PBS -j oe
 #PBS -R n
 #PBS -r n
+#PBS -q {{ QUEUE }}
 #PBS -l nodes={{ NODES }}
 #PBS -l ppn={{ PPN }}
-#PBS -q {{ QUEUE }}
 #PBS -l walltime={{ WALLTIME }}
 #PBS -m {{ NOTIFY }}
 #PBS -M {{ EMAIL }}
