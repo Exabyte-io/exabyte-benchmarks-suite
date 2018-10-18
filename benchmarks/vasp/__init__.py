@@ -12,9 +12,9 @@ def get_vasp_elb_config(nodes, prefix="elb"):
             cp /export/share/pseudo/bi/gga/pbe/vasp/{0}/paw/default/POTCAR POTCAR
             mpirun -np $PBS_NP vasp &> vasp-`date +'%s'`.log
         """.format(VASP_VERSION),
-        "kgrid": {
-            "dimensions": [1, 1, 2],
-            "shifts": [0, 0, 0],
+        "KGRID": {
+            "DIMENSIONS": [1, 1, 2],
+            "SHIFTS": [0, 0, 0],
         },
         "INPUTS": [
             {

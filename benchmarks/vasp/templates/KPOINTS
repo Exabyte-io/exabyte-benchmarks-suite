@@ -1,5 +1,5 @@
 Automatic mesh
 0
 Gamma
-  {% for d in kgrid.dimensions %}{{d}} {% endfor %}
-  {% for s in kgrid.shifts %}{{s}} {% endfor %}
+  {% for d in KGRID.DIMENSIONS %}{{d}} {% endfor %}
+  {% for s in KGRID.SHIFTS %}{{s}} {% endfor %}
