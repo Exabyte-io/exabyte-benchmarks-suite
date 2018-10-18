@@ -7,9 +7,9 @@ def get_vasp_elb_config(nodes, prefix="elb"):
         "NODES": nodes,
         "MODULE": VASP_MODULE,
         "COMMAND": """
-            cp /export/share/pseudo/ba/gga/pbe/vasp/{0}/paw/sv/POTCAR POTCAR
-            cp /export/share/pseudo/o/gga/pbe/vasp/{0}/paw/default/POTCAR POTCAR
-            cp /export/share/pseudo/bi/gga/pbe/vasp/{0}/paw/default/POTCAR POTCAR
+            cat /export/share/pseudo/ba/gga/pbe/vasp/{0}/paw/sv/POTCAR > POTCAR
+            cat /export/share/pseudo/o/gga/pbe/vasp/{0}/paw/default/POTCAR >> POTCAR
+            cat /export/share/pseudo/bi/gga/pbe/vasp/{0}/paw/default/POTCAR >> POTCAR
             mpirun -np $PBS_NP vasp &> vasp-`date +'%s'`.log
         """.format(VASP_VERSION),
         "KGRID": {
