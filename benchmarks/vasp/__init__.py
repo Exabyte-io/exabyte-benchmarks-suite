@@ -1,10 +1,11 @@
 from settings import VASP_MODULE, VASP_VERSION
 
 
-def get_vasp_elb_config(nodes, prefix="elb"):
+def get_vasp_elb_config(nodes, ppn, prefix="elb"):
     return {
-        "NAME": "-".join((prefix, str(nodes))),
+        "NAME": "-".join((prefix, str(nodes), str(ppn))),
         "NODES": nodes,
+        "PPN": ppn,
         "MODULE": VASP_MODULE,
         "COMMAND": """
             cat /export/share/pseudo/ba/gga/pbe/vasp/{0}/paw/sv/POTCAR > POTCAR
@@ -34,8 +35,20 @@ def get_vasp_elb_config(nodes, prefix="elb"):
 
 
 VASP_CASES = [
-    get_vasp_elb_config(1),
-    get_vasp_elb_config(2),
-    get_vasp_elb_config(4),
-    get_vasp_elb_config(8),
+    get_vasp_elb_config(1, 4),
+    get_vasp_elb_config(1, 8),
+    get_vasp_elb_config(1, 12),
+    get_vasp_elb_config(1, 16),
+    get_vasp_elb_config(2, 4),
+    get_vasp_elb_config(2, 8),
+    get_vasp_elb_config(2, 12),
+    get_vasp_elb_config(2, 16),
+    get_vasp_elb_config(4, 4),
+    get_vasp_elb_config(4, 8),
+    get_vasp_elb_config(4, 12),
+    get_vasp_elb_config(4, 16),
+    get_vasp_elb_config(8, 4),
+    get_vasp_elb_config(8, 8),
+    get_vasp_elb_config(8, 12),
+    get_vasp_elb_config(8, 16),
 ]
