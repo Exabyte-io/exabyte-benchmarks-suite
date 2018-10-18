@@ -60,4 +60,5 @@ target/
 # MacOS X
 .DS_Store
 
-*.pbs
+*.rms
+*.dat
