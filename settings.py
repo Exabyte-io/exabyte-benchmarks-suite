@@ -2,7 +2,7 @@ import os
 
 RUNTIME_FILE = "runtime"
 RMS_JOB_FILE_NAME = "job.rms"
-RMS_JOB_TEMPLATE = os.path.join(os.path.dirname(__file__), "templates/job.rms")
+RMS_JOB_TEMPLATE_FILE = os.path.join(os.path.dirname(__file__), "job.rms")
 
 # RMS
 PPN = 36

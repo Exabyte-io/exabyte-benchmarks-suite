@@ -45,7 +45,7 @@ class Case(object):
 
     def _create_rms_job_script(self):
         job_path = os.path.join(self.work_dir, RMS_JOB_FILE_NAME)
-        job_content = Template(read(RMS_JOB_TEMPLATE)).render(self._get_rms_context())
+        job_content = Template(read(RMS_JOB_TEMPLATE_FILE)).render(self._get_rms_context())
         write(job_path, job_content)
 
     def _create_input_files(self):
