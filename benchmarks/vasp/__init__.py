@@ -24,4 +24,5 @@ class VASPCase(Case):
     def _get_application_context(self):
         return {
             "kgrid": self.config["kgrid"],
+            "nodes": self.config["nodes"]
         }

@@ -24,6 +24,16 @@ for config in VASP_ELB_CASES:
         "config": config
     })
 
+VASP_KPT_CASES = read_json(os.path.join(CWD, "vasp-kpt.json"))
+for config in VASP_KPT_CASES:
+    config.update(read_json(os.path.join(CWD, "vasp-kpt-default.json")))
+    CASES.append({
+        "name": "-".join(("kpt", "{0:0=2d}".format(config["nodes"]), "{0:0=2d}".format(config["ppn"]))),
+        "type": "vasp",
+        "reference": "benchmarks.vasp.VASPCase",
+        "config": config
+    })
+
 ESPRESSO_CASES = read_json(os.path.join(CWD, "espresso.json"))
 for config in ESPRESSO_CASES:
     CASES.append({
