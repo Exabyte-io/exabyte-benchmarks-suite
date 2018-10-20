@@ -1,54 +1,27 @@
-from settings import VASP_MODULE, VASP_VERSION
+import os
+
+from settings import VASP_MODULE
+from benchmarks.case import Case
 
 
-def get_vasp_elb_config(nodes, ppn, prefix="elb"):
-    return {
-        "NAME": "-".join((prefix, "{0:0=2d}".format(nodes), "{0:0=2d}".format(ppn))),
-        "NODES": nodes,
-        "PPN": ppn,
-        "MODULE": VASP_MODULE,
-        "COMMAND": """
-            cat /export/share/pseudo/ba/gga/pbe/vasp/{0}/paw/sv/POTCAR > POTCAR
-            cat /export/share/pseudo/o/gga/pbe/vasp/{0}/paw/default/POTCAR >> POTCAR
-            cat /export/share/pseudo/bi/gga/pbe/vasp/{0}/paw/default/POTCAR >> POTCAR
-            mpirun -np $PBS_NP vasp &> vasp-`date +'%s'`.log
-        """.format(VASP_VERSION),
-        "KGRID": {
-            "DIMENSIONS": [1, 1, 2],
-            "SHIFTS": [0, 0, 0],
-        },
-        "INPUTS": [
-            {
-                "NAME": "INCAR",
-                "TEMPLATE": "templates/ELB-INCAR"
-            },
-            {
-                "NAME": "POSCAR",
-                "TEMPLATE": "POSCARS/Ba25Bi15O54"
-            },
-            {
-                "NAME": "KPOINTS",
-                "TEMPLATE": "templates/KPOINTS"
-            }
-        ]
-    }
+class VASPCase(Case):
+    def __init__(self, name, config, work_dir):
+        super(VASPCase, self).__init__(name, config, work_dir)
 
+    def _get_default_config(self):
+        default_config = super(VASPCase, self)._get_default_config()
+        default_config.update({
+            "module": VASP_MODULE,
+            "command": "mpirun -np $PBS_NP vasp &> vasp-`date +'%s'`.log"
+        })
+        return default_config
 
-VASP_CASES = [
-    get_vasp_elb_config(1, 4),
-    get_vasp_elb_config(1, 8),
-    get_vasp_elb_config(1, 12),
-    get_vasp_elb_config(1, 16),
-    get_vasp_elb_config(2, 4),
-    get_vasp_elb_config(2, 8),
-    get_vasp_elb_config(2, 12),
-    get_vasp_elb_config(2, 16),
-    get_vasp_elb_config(4, 4),
-    get_vasp_elb_config(4, 8),
-    get_vasp_elb_config(4, 12),
-    get_vasp_elb_config(4, 16),
-    get_vasp_elb_config(8, 4),
-    get_vasp_elb_config(8, 8),
-    get_vasp_elb_config(8, 12),
-    get_vasp_elb_config(8, 16),
-]
+    def prepare(self):
+        super(VASPCase, self).prepare()
+        pseudos = " ".join(self.config.get("pseudos", []))
+        os.system(" ".join(("cat", pseudos, ">", os.path.join(self.work_dir, "POTCAR"))))
+
+    def _get_application_context(self):
+        return {
+            "kgrid": self.config["kgrid"],
+        }

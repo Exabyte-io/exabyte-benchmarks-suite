@@ -1,8 +1,8 @@
-CASES_DIR = "cases"
-JOB_NAME = "job.rms"
+import os
+
 RUNTIME_FILE = "runtime"
-BENCHMARKS_DIR = "benchmarks"
-JOB_TEMPLATE = "templates/job.rms"
+RMS_JOB_FILE_NAME = "job.rms"
+RMS_JOB_TEMPLATE = os.path.join(os.path.dirname(__file__), "templates/job.rms")
 
 # RMS
 PPN = 36
@@ -30,5 +30,3 @@ VASP_MODULE = "vasp/544-i-174-impi-044"
 ESPRESSO_MODULE = "espresso/540-i-174-impi-044"
 GROMACS_MODULE = "gromacs/514-i-174-impi-044-md"
 GROMACS_GPU_MODULE = "gromacs/20183-i-174-impi-044-gms"
-
-VASP_VERSION = "5.4"

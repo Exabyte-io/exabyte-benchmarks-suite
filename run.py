@@ -1,48 +1,28 @@
 import os
+import argparse
 
-from jinja2 import Template
-
-from settings import *
-from utils import read, write
-from benchmarks.hpl import HPL_CASES
-from benchmarks.vasp import VASP_CASES
-from benchmarks.gromacs import GROMACS_CASES
-from benchmarks.network import NETWORK_CASES
-from benchmarks.espresso import ESPRESSO_CASES
-
-BENCHMARKS = {
-    "hpl": HPL_CASES,
-    "vasp": VASP_CASES,
-    "network": NETWORK_CASES,
-    "gromacs": GROMACS_CASES,
-    "espresso": ESPRESSO_CASES,
-}
+from cases import CASES
+from benchmarks.utils import get_class_by_refernce
 
 
-def run_case(benchmark_, case_):
-    benchmark_dir = os.path.join(BENCHMARKS_DIR, benchmark_)
-    cases_dir = os.path.join(benchmark_dir, CASES_DIR)
-    case_dir = os.path.join(cases_dir, case_["NAME"])
-    os.system("mkdir -p {}".format(case_dir))
-
-    # populate the context
-    context = DEFAULT_RMS_CONFIG
-    context.update(case_)
-
-    # create job script
-    job_path = os.path.join(case_dir, JOB_NAME)
-    job_content = Template(read(JOB_TEMPLATE)).render(context)
-    write(job_path, job_content)
-
-    # create inputs
-    for input_ in case_.get("INPUTS", []):
-        template = read(os.path.join(benchmark_dir, input_["TEMPLATE"]))
-        write(os.path.join(case_dir, input_["NAME"]), Template(template).render(context))
-
-    # submit jobs
-    os.system("cd {}; qsub {}".format(case_dir, JOB_NAME))
+def parse_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-p', '--prepare', action="store_true", help='prepare benchmarks')
+    parser.add_argument('-e', '--execute', action="store_true", help='execute benchmarks')
+    parser.add_argument('-r', '--results', action="store_true", help='extract benchmarks results')
+    return parser.parse_args()
 
 
 if __name__ == '__main__':
-    for benchmark, cases in BENCHMARKS.iteritems():
-        [run_case(benchmark, case) for case in cases]
+    classes = []
+    cwd = os.path.dirname(__file__)
+    for case in CASES:
+        for input_ in case["config"].get("inputs", []):
+            if input_["template"]: input_["template"] = os.path.join(cwd, input_["template"])
+        dir_ = os.path.join(cwd, "benchmarks", case["type"], "cases", case["name"])
+        classes.append(get_class_by_refernce(case["reference"])(case["name"], case["config"], dir_))
+
+    args = parse_arguments()
+    if args.execute: [cls.execute() for cls in classes]
+    if args.prepare: [cls.prepare() for cls in classes]
+    if args.results: [cls.results() for cls in classes]
