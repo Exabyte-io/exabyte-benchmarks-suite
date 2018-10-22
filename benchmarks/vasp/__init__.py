@@ -12,7 +12,7 @@ class VASPCase(Case):
         default_config = super(VASPCase, self)._get_default_config()
         default_config.update({
             "module": VASP_MODULE,
-            "command": "mpirun -np $PBS_NP vasp &> vasp-`date +'%s'`.log"
+            "command": "mpirun -np $PBS_NP vasp &> {}".format(self.stdout),
         })
         return default_config
 

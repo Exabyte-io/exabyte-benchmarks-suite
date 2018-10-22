@@ -1,7 +1,9 @@
 import os
+import re
 
 from benchmarks.case import Case
-from settings import HPL_MODULE
+from benchmarks.utils import read
+from settings import HPL_MODULE, HPL_RESULT_REGEX
 
 
 class HPLCase(Case):
@@ -12,7 +14,7 @@ class HPLCase(Case):
         default_config = super(HPLCase, self)._get_default_config()
         default_config.update({
             "module": HPL_MODULE,
-            "command": "mpirun -np $PBS_NP xhpl &> hpl-`date +'%s'`.log",
+            "command": "mpirun -np $PBS_NP xhpl &> {}".format(self.stdout),
             "inputs": [
                 {
                     "name": "HPL.dat",
@@ -29,3 +31,14 @@ class HPLCase(Case):
             "P": self.config["P"],
             "Q": self.config["Q"]
         }
+
+    def results(self):
+        result = super(HPLCase, self).results()
+        hpl_result = ["-", "-", "-", "-", "-", "-"]
+        if os.path.exists(self.stdout_file):
+            content = read(os.path.join(self.work_dir, self.stdout))
+            pattern = re.compile(HPL_RESULT_REGEX, re.I | re.MULTILINE)
+            matches = pattern.findall(content)
+            if matches: hpl_result = matches[0]
+        result.extend(hpl_result)
+        return result

@@ -8,9 +8,11 @@ from utils import read, write
 class Case(object):
     def __init__(self, name, config, work_dir):
         self.name = name
+        self.work_dir = work_dir
+        self.stdout = ".".join((self.name, "log"))
+        self.stdout_file = os.path.join(self.work_dir, self.stdout)
         self.config = deepcopy(self._get_default_config())
         self.config.update(config)
-        self.work_dir = work_dir
 
     def _get_default_config(self):
         return {

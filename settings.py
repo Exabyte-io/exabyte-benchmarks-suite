@@ -30,3 +30,9 @@ VASP_MODULE = "vasp/544-i-174-impi-044"
 ESPRESSO_MODULE = "espresso/540-i-174-impi-044"
 GROMACS_MODULE = "gromacs/514-i-174-impi-044-md"
 GROMACS_GPU_MODULE = "gromacs/20183-i-174-impi-044-gms"
+
+REGEX = {
+    'int': r'[+-]?\d+',
+    'double': r'[-+]?\d*\.\d+(?:[eE][-+]?\d+)?',
+}
+HPL_RESULT_REGEX = r'WC.*\s+({0})\s+({0})\s+({0})\s+({0})\s+({1})\s+({1})'.format(REGEX["int"], REGEX["double"])
