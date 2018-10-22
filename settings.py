@@ -21,15 +21,10 @@ DEFAULT_RMS_CONFIG = {
 }
 
 # MODULES
-IMB_MODULE = "imb"
-MKL_MODULE = "mkl/i-174"
-MPI_MODULE = "mpi/impi-044"
-INTEL_MODULE = "intel/i-174"
 HPL_MODULE = "hpl/22-i-174-impi-044"
 VASP_MODULE = "vasp/544-i-174-impi-044"
 ESPRESSO_MODULE = "espresso/540-i-174-impi-044"
-GROMACS_MODULE = "gromacs/514-i-174-impi-044-md"
-GROMACS_GPU_MODULE = "gromacs/20183-i-174-impi-044-gms"
+GROMACS_MODULE = "gromacs/20183-i-174-impi-044-md"
 
 REGEX = {
     'int': r'[+-]?\d+',
