@@ -48,7 +48,7 @@ for input_ in ["model-1", "model-2", "model-3", "model-4"]:
                     "template": "benchmarks/gromacs/inputs/{}.tpr".format(input_)
                 }
             ],
-            "command": "source GMXRC.bash; gmx_mpi_d mdrun -s md.tpr -deffnm md"
+            "command": "source GMXRC.bash; mpirun -np $PBS_NP gmx_mpi_d mdrun -ntomp 1 -s md.tpr -deffnm md"
         })
         CASES.append({
             "name": "-".join((input_, "{0:0=2d}".format(config["nodes"]), "{0:0=2d}".format(config["ppn"]))),
