@@ -63,5 +63,7 @@ class Case(object):
         os.system("cd {}; qsub {}".format(self.work_dir, RMS_JOB_FILE_NAME))
 
     def results(self):
-        runtime = int(read(os.path.join(self.work_dir, RUNTIME_FILE)))
+        runtime = '-'
+        runtime_file = os.path.join(self.work_dir, RUNTIME_FILE)
+        if os.path.exists(runtime_file): runtime = read(runtime_file)
         return [self.name, self.config["nodes"], self.config["ppn"], runtime]
