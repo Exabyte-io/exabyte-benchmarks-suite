@@ -1,6 +1,8 @@
 import os
 import argparse
 
+from tabulate import tabulate
+
 from cases import CASES
 from benchmarks.utils import get_class_by_refernce
 
@@ -27,4 +29,6 @@ if __name__ == '__main__':
 
     if args.execute: [cls.execute() for cls in classes]
     if args.prepare: [cls.prepare() for cls in classes]
-    if args.results: [cls.results() for cls in classes]
+    if args.results:
+        results = [cls.results() for cls in classes]
+        print tabulate(results, ["NAME", "NODES", "PPN", "RUNTIME"], tablefmt='grid', stralign='center')
