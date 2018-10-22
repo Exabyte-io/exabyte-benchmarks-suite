@@ -1,66 +1,33 @@
-[
-    {
-        "nodes": 1,
-        "ppn": 4
+{
+    "kgrid": {
+        "dimensions": [
+            1,
+            1,
+            1
+        ],
+        "shifts": [
+            0,
+            0,
+            0
+        ]
     },
-    {
-        "nodes": 1,
-        "ppn": 8
-    },
-    {
-        "nodes": 1,
-        "ppn": 12
-    },
-    {
-        "nodes": 1,
-        "ppn": 16
-    },
-    {
-        "nodes": 2,
-        "ppn": 4
-    },
-    {
-        "nodes": 2,
-        "ppn": 8
-    },
-    {
-        "nodes": 2,
-        "ppn": 12
-    },
-    {
-        "nodes": 2,
-        "ppn": 16
-    },
-    {
-        "nodes": 4,
-        "ppn": 4
-    },
-    {
-        "nodes": 4,
-        "ppn": 8
-    },
-    {
-        "nodes": 4,
-        "ppn": 12
-    },
-    {
-        "nodes": 4,
-        "ppn": 16
-    },
-    {
-        "nodes": 8,
-        "ppn": 4
-    },
-    {
-        "nodes": 8,
-        "ppn": 8
-    },
-    {
-        "nodes": 8,
-        "ppn": 12
-    },
-    {
-        "nodes": 8,
-        "ppn": 16
-    }
-]
+    "inputs": [
+        {
+            "name": "INCAR",
+            "template": "benchmarks/vasp/templates/ELB-INCAR"
+        },
+        {
+            "name": "POSCAR",
+            "template": "benchmarks/vasp/POSCARS/Ba25Bi15O54"
+        },
+        {
+            "name": "KPOINTS",
+            "template": "benchmarks/vasp/templates/KPOINTS"
+        }
+    ],
+    "pseudos": [
+        "/export/share/pseudo/ba/gga/pbe/vasp/5.2/paw/sv/POTCAR",
+        "/export/share/pseudo/bi/gga/pbe/vasp/5.2/paw/default/POTCAR",
+        "/export/share/pseudo/o/gga/pbe/vasp/5.2/paw/default/POTCAR"
+    ]
+}

@@ -1,5 +1,6 @@
-from benchmarks.case import Case
 from settings import GROMACS_MODULE
+from benchmarks.case import Case, os
+from benchmarks.utils import read, write
 
 
 class GROMACSCase(Case):
@@ -12,3 +13,7 @@ class GROMACSCase(Case):
             "module": GROMACS_MODULE
         })
         return default_config
+
+    def _create_input_files(self):
+        for input_ in self.config["inputs"]:
+            write(os.path.join(self.work_dir, input_["name"]), read(input_["template"]))
