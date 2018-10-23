@@ -7,6 +7,14 @@ from utils import read, write
 
 class Case(object):
     def __init__(self, name, config, work_dir):
+        """
+        Base case class.
+
+        Args:
+            name (str): case name
+            config (dict): case config.
+            work_dir (str): case working directory.
+        """
         self.name = name
         self.work_dir = work_dir
         self.stdout = ".".join((self.name, "log"))
@@ -15,6 +23,12 @@ class Case(object):
         self.config.update(config)
 
     def _get_default_config(self):
+        """
+        Returns a default config for the case. It will be merged by the passed config.
+
+        Returns:
+            dict
+        """
         return {
             "queue": QUEUE,
             "nodes": 1,
@@ -26,6 +40,12 @@ class Case(object):
         }
 
     def _get_rms_context(self):
+        """
+        Returns the context to render the RMS template with.
+
+        Returns:
+            dict
+        """
         return {
             "NAME": self.name,
             "QUEUE": self.config["queue"],
@@ -40,6 +60,12 @@ class Case(object):
         }
 
     def _get_application_context(self):
+        """
+        Returns the context to render the application-specific templates.
+
+        Returns:
+            dict
+        """
         return {}
 
     def _create_work_dir(self):
@@ -57,14 +83,23 @@ class Case(object):
                   Template(template).render(self._get_application_context()))
 
     def prepare(self):
+        """
+        Prepares the case for execution.
+        """
         self._create_work_dir()
         self._create_input_files()
         self._create_rms_job_script()
 
     def execute(self):
+        """
+        Runs the case by submitting the job script to RMS.
+        """
         os.system("cd {}; qsub {}".format(self.work_dir, RMS_JOB_FILE_NAME))
 
     def results(self):
+        """
+        Returns the results.
+        """
         runtime = '-'
         runtime_file = os.path.join(self.work_dir, RUNTIME_FILE)
         if os.path.exists(runtime_file): runtime = read(runtime_file)

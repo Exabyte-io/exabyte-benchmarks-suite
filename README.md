@@ -1,17 +1,47 @@
-# exabyte-test-cases
+# exabyte-benchmarks
 
-Runs a test case for structure readers and characteristic properties extraction, supported by exabyte.io.
+This repository provides a set of tools to benchmark cloud provider and on-premise hardware.
 
 ## Usage
 
-Control script run.py runs test cases based on the test input files and structures that are expected
-to be in the directory provided as an argument.  Results of the test run will be available under `workdir` path.
-Previously generated *.json files will be present next to the newly generated application results.
+1. Make sure cluster is properly configured
 
-Example invocation:
+2. Clone the repository into the user home directory
+    
+    ```bash
+    git clone git@github.com:Exabyte-io/exabyte-test-cases.git
+    ```
 
-```bash
-python run.py characteristics/total_energy/espresso/FCC/
-```
+3. Install required python packages
 
-Application names (vasp, espresso) are read from the path.
+    ```bash
+    cd exabyte-test-cases
+    virtualenv env
+    source env/bin/activate
+    pip install requirements.txt
+    ```
+
+4. Adjust modules and RMS settings in [settings.py](settings.py) as necessary
+
+5. Adjust [job.rms](job.rms) template as necessary, e.g. to add IB environment variables
+
+6. Adjust HPL config in [hpl.json](cases/hpl.json). You can use the below links to generate the config
+    - http://www.advancedclustering.com/act_kb/tune-hpl-dat-file
+    - http://hpl-calculator.sourceforge.net/
+
+6. Prepare the cases
+
+    ```bash
+        python run.py --prepare    
+    ```
+
+7. Run the cases and waits for them to finish
+
+    ```bash
+        python run.py --execute
+    ```
+
+8. Get the results
+    ```bash
+        python run.py --results
+    ```
