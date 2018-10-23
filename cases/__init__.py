@@ -1,4 +1,5 @@
 import os
+from copy import deepcopy
 
 from benchmarks.utils import read_json
 
@@ -54,5 +55,5 @@ for input_ in ["model-1", "model-2", "model-3", "model-4"]:
             "name": "-".join((input_, "{0:0=2d}".format(config["nodes"]), "{0:0=2d}".format(config["ppn"]))),
             "type": "gromacs",
             "reference": "benchmarks.gromacs.GROMACSCase",
-            "config": config
+            "config": deepcopy(config)
         })
