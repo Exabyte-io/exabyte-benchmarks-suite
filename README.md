@@ -18,7 +18,7 @@ This repository provides a set of tools to benchmark cloud provider and on-premi
     cd exabyte-test-cases
     virtualenv env
     source env/bin/activate
-    pip install requirements.txt
+    pip install -r requirements.txt
     ```
 
 4. Adjust modules and RMS settings in [settings.py](settings.py) as necessary
