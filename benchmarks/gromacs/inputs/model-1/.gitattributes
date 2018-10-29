@@ -1,0 +1,4 @@
+em.gro filter=lfs diff=lfs merge=lfs -text
+md.tpr filter=lfs diff=lfs merge=lfs -text
+nvt.mdp filter=lfs diff=lfs merge=lfs -text
+topol.top filter=lfs diff=lfs merge=lfs -text

@@ -46,7 +46,7 @@ for input_ in ["model-1", "model-2", "model-3", "model-4"]:
             "inputs": [
                 {
                     "name": "md.tpr",
-                    "template": "benchmarks/gromacs/inputs/{}.tpr".format(input_)
+                    "template": "benchmarks/gromacs/inputs/{}/md.tpr".format(input_)
                 }
             ],
             "command": "source GMXRC.bash; mpirun -np $PBS_NP gmx_mpi_d mdrun -ntomp 1 -s md.tpr -deffnm md"

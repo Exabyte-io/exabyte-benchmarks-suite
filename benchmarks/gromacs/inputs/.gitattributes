@@ -1,4 +1,0 @@
-model-1.tpr filter=lfs diff=lfs merge=lfs -text
-model-2.tpr filter=lfs diff=lfs merge=lfs -text
-model-3.tpr filter=lfs diff=lfs merge=lfs -text
-model-4.tpr filter=lfs diff=lfs merge=lfs -text
