@@ -22,7 +22,7 @@ DEFAULT_RMS_CONFIG = {
 
 # MODULES
 HPL_MODULE = "hpl/22-i-174-impi-044"
-VASP_MODULE = "vasp/544-i-174-impi-044"
+VASP_MODULE = "vasp/535-i-174-impi-044"
 ESPRESSO_MODULE = "espresso/540-i-174-impi-044"
 GROMACS_MODULE = "gromacs/20183-i-174-impi-044-md"
 
