@@ -54,9 +54,9 @@ This repository provides a set of tools to benchmark different cloud providers h
 
 1. Put the POSCAR into the [POSCARS](benchmarks/vasp/POSCARS) directory or reuse existing ones
 
-2. Add the INCAR into the [templates](benchmarks/vasp/templates) directory or reuse existing ones
+2. Put the INCAR into the [templates](benchmarks/vasp/templates) directory or reuse existing ones
 
-3. Create a config as below and add it to the [CASES](cases/__init__.py)
+3. Create a config as below and add it to the [CASES](cases/__init__.py).
 
     ```json
     {
@@ -101,6 +101,12 @@ This repository provides a set of tools to benchmark different cloud providers h
     }
     ```
 
+4. Adjust `inputs` according to step 1 and step 2.
+
+5. Adjust The `psuedos` filed accordingly. It contains a list of pseudopotential absolute paths sorted by elements in INCAR file which will be concatenated together to form the POTCAR.
+
+6. Adjust `kgrid` as necessary. The object is passed to `KPOINTS` template specified in `inputs` to create KPOINTS file.
+
 ## How to add a new GROMACS case 
 
 1. Put the tpr file into the [inputs](benchmarks/gromacs/inputs) directory or reuse existing ones
@@ -118,7 +124,7 @@ This repository provides a set of tools to benchmark different cloud providers h
             "inputs": [
                 {
                     "name": "md.tpr",
-                    "template": "benchmarks/gromacs/inputs/model-1.tpr"
+                    "template": "benchmarks/gromacs/inputs/model-1/md.tpr"
                 }
             ],
             "command": "source GMXRC.bash; mpirun -np $PBS_NP gmx_mpi_d mdrun -ntomp 1 -s md.tpr -deffnm md"
