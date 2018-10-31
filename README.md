@@ -103,7 +103,7 @@ This repository provides a set of tools to benchmark different cloud providers h
 
 4. Adjust `inputs` according to step 1 and step 2.
 
-5. Adjust The `psuedos` filed accordingly. It contains a list of pseudopotential absolute paths sorted by elements in INCAR file which will be concatenated together to form the POTCAR.
+5. Adjust The `pseudos` accordingly. It contains a list of pseudopotential absolute paths sorted by elements in INCAR file which will be concatenated together to form the POTCAR.
 
 6. Adjust `kgrid` as necessary. The object is passed to `KPOINTS` template specified in `inputs` to create KPOINTS file.
 
