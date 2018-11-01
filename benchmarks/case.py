@@ -110,9 +110,17 @@ class Case(object):
 
     def results(self):
         """
-        Returns the results.
+        Returns a flattened dictionary containing the results. Keys will be used as headers and Values as a row.
+
+        Returns:
+            dict
         """
         runtime = '-'
         runtime_file = os.path.join(self.work_dir, RUNTIME_FILE)
         if os.path.exists(runtime_file): runtime = read(runtime_file)
-        return [self.name, self.config["nodes"], self.config["ppn"], runtime.rstrip("\n")]
+        return {
+            "NAME": self.name,
+            "PPN": self.config["ppn"],
+            "NODES": self.config["nodes"],
+            "RUNTIME": runtime.rstrip("\n")
+        }

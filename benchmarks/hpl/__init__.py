@@ -44,13 +44,35 @@ class HPLCase(Case):
             "Q": self.config["Q"]
         }
 
-    def results(self):
-        result = super(HPLCase, self).results()
-        hpl_result = ["-", "-", "-", "-", "-", "-"]
+    def _get_hpl_results(self):
+        """
+        Parses the output and extracts the result.
+
+        Returns:
+            dict
+        """
+        results = ["-" for i in range(6)]
         if os.path.exists(self.stdout_file):
             content = read(os.path.join(self.work_dir, self.stdout))
             pattern = re.compile(HPL_RESULT_REGEX, re.I | re.MULTILINE)
             matches = pattern.findall(content)
-            if matches: hpl_result = matches[0]
-        result.extend(hpl_result)
-        return result
+            if matches: results = matches[0]
+        return {
+            "N": results[0],
+            "NB": results[1],
+            "P": results[2],
+            "Q": results[3],
+            "TIME": results[4],
+            "GFLOPS": results[5]
+        }
+
+    def results(self):
+        """
+        Returns a flattened dictionary containing the results. Keys will be used as headers and Values as a row.
+
+        Returns:
+            dict
+        """
+        results = super(HPLCase, self).results()
+        results.update(self._get_hpl_results())
+        return results
