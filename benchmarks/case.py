@@ -69,14 +69,23 @@ class Case(object):
         return {}
 
     def _create_work_dir(self):
-        os.system("mkdir -p {}".format(self.work_dir))
+        """
+        Creates case working directory.
+        """
+        os.mkdir(self.work_dir)
 
     def _create_rms_job_script(self):
+        """
+        Renders the job RMS template with RMS context and creates the job script file on case working directory.
+        """
         job_path = os.path.join(self.work_dir, RMS_JOB_FILE_NAME)
         job_content = Template(read(RMS_JOB_TEMPLATE_FILE)).render(self._get_rms_context())
         write(job_path, job_content)
 
     def _create_input_files(self):
+        """
+        Renders the input files given in the config with application context and creates them on case working directory.
+        """
         for input_ in self.config["inputs"]:
             template = read(input_["template"])
             write(os.path.join(self.work_dir, input_["name"]),
@@ -84,7 +93,10 @@ class Case(object):
 
     def prepare(self):
         """
-        Prepares the case for execution.
+        Prepares the case for execution:
+            - Creates working directory
+            - Creates input files
+            - Create job script file
         """
         self._create_work_dir()
         self._create_input_files()
@@ -94,7 +106,7 @@ class Case(object):
         """
         Runs the case by submitting the job script to RMS.
         """
-        os.system("cd {}; qsub {}".format(self.work_dir, RMS_JOB_FILE_NAME))
+        os.system("cd {}; {} {}".format(self.work_dir, QSUB_COMMAND, RMS_JOB_FILE_NAME))
 
     def results(self):
         """

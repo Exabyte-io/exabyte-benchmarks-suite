@@ -11,6 +11,12 @@ class HPLCase(Case):
         super(HPLCase, self).__init__(name, config, work_dir)
 
     def _get_default_config(self):
+        """
+        Returns a default config for the case. It will be merged by the passed config.
+
+        Returns:
+            dict
+        """
         default_config = super(HPLCase, self)._get_default_config()
         default_config.update({
             "module": HPL_MODULE,
@@ -25,6 +31,12 @@ class HPLCase(Case):
         return default_config
 
     def _get_application_context(self):
+        """
+        Returns the context to render the HPL.dat file.
+
+        Returns:
+            dict
+        """
         return {
             "N": self.config["N"],
             "NB": self.config["NB"],
