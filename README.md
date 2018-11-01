@@ -9,7 +9,7 @@ This repository provides a set of tools to benchmark different cloud providers h
 2. Clone the repository into the user home directory
     
     ```bash
-    git clone git@github.com:Exabyte-io/exabyte-test-cases.git
+    git clone git@github.com:Exabyte-io/exabyte-benchmarks.git
     ```
 
 3. Install python virtualenv if you do not have it
