@@ -20,7 +20,7 @@ This repository provides a set of tools to benchmark different cloud providers h
 4. Install required python packages
 
     ```bash
-    cd exabyte-test-cases
+    cd exabyte-benchmarks
     virtualenv env
     source env/bin/activate
     pip install -r requirements.txt
