@@ -34,4 +34,4 @@ if __name__ == '__main__':
     if args.results:
         for case in cases:
             results = case.results()
-            print tabulate(results.values(), results.keys(), tablefmt='grid', stralign='center')
+            print tabulate([results.values()], results.keys(), tablefmt='grid', stralign='center')
