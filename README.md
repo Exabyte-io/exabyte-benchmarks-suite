@@ -65,18 +65,24 @@ This repository provides a set of tools to benchmark different cloud providers h
 6. Prepare the cases
 
     ```bash
-        python run.py --prepare    
+        python run.py --prepare                 # prepares all cases
+        python run.py --prepare --type hpl      # prepares only hpl cases
+        python run.py --prepare --name hpl-01   # prepares only hpl-01 case
     ```
 
 7. Run the cases and waits for them to finish
 
     ```bash
-        python run.py --execute
+        python run.py --execute                 # execute all cases
+        python run.py --execute --type hpl      # execute only hpl cases
+        python run.py --execute --name hpl-01   # execute only hpl-01 case
     ```
 
 8. Get the results
     ```bash
-        python run.py --results
+        python run.py --results                 # print all results
+        python run.py --results --type hpl      # print only hpl results
+        python run.py --results --name hpl-01   # print only hpl-01 results
     ```
 
 ## How to add a new HPL case
