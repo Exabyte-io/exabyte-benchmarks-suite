@@ -12,7 +12,12 @@ This repository provides a set of tools to benchmark different cloud providers h
     git clone git@github.com:Exabyte-io/exabyte-test-cases.git
     ```
 
-3. Install required python packages
+3. Install python virtualenv if you do not have it
+    ```bash
+    pip install virtualenv
+    ```
+
+4. Install required python packages
 
     ```bash
     cd exabyte-test-cases
@@ -21,9 +26,37 @@ This repository provides a set of tools to benchmark different cloud providers h
     pip install -r requirements.txt
     ```
 
-4. Adjust modules and RMS settings in [settings.py](settings.py) as necessary
+5. Adjust [job.rms](job.rms) template as necessary, e.g. to add IB environment variables.
+    ```
+    #!/bin/bash
+     
+    #PBS -N {{ NAME }}
+    #PBS -j oe
+    #PBS -R n
+    #PBS -r n
+    #PBS -q {{ QUEUE }}
+    #PBS -l nodes={{ NODES }}
+    #PBS -l ppn={{ PPN }}
+    #PBS -l walltime={{ WALLTIME }}
+    #PBS -m {{ NOTIFY }}
+    #PBS -M {{ EMAIL }}
+     
+    module add {{ MODULE }}
+    cd $PBS_O_WORKDIR
+     
+    export I_MPI_FABRICS=shm:dapl
+    export I_MPI_DAPL_PROVIDER=ofa-v2-cma-roe-enp94s0f0
+    export I_MPI_DYNAMIC_CONNECTION=0
+     
+    start=`date +%s`
+     
+    {{ COMMAND }}
+     
+    end=`date +%s`
+    echo $((end-start)) > {{ RUNTIME_FILE }}
+    ```
 
-5. Adjust [job.rms](job.rms) template as necessary, e.g. to add IB environment variables
+6. Adjust modules and RMS settings in [settings.py](settings.py) as necessary, e.g set PPN to maximum number of cores per node.
 
 6. Adjust HPL config in [hpl.json](cases/hpl.json). You can use the below links to generate the config
     - http://www.advancedclustering.com/act_kb/tune-hpl-dat-file
@@ -105,7 +138,7 @@ This repository provides a set of tools to benchmark different cloud providers h
 
 5. Adjust The `pseudos` accordingly. It contains a list of pseudopotential absolute paths sorted by elements in INCAR file which will be concatenated together to form the POTCAR.
 
-6. Adjust `kgrid` as necessary. The object is passed to `KPOINTS` template specified in `inputs` to create KPOINTS file.
+6. Adjust `kgrid` as necessary. The object is passed to `KPOINTS` template specified in `inputs` to create KPOINTS file. Adjust `KPOINTS` template or add new ones for extra parameters.
 
 ## How to add a new GROMACS case 
 
