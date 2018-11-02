@@ -1,8 +1,16 @@
 # exabyte-benchmarks
 
-This repository provides a set of tools to benchmark different cloud providers hardware.
+This repository provides a set of tools to benchmark hardware for distributed computing.
 
-## How to run benchmarks
+We use this tool to benchmark cloud provider systems agains the cases supported below, relevant for materials modeling:
+
+- High-performance Linpack ([HPL](http://www.netlib.org/benchmark/hpl/))
+- [Vienna ab-initio simulations provider](https://www.vasp.at/)
+- [GROMACS](http://www.gromacs.org/)
+
+Readers are welcome to submit their contributions for other hardware and software configurations.
+
+# How to run benchmarks
 
 1. Make sure cluster is properly configured and it is up and running
 
@@ -26,7 +34,7 @@ This repository provides a set of tools to benchmark different cloud providers h
     pip install -r requirements.txt
     ```
 
-5. Adjust [job.rms](job.rms) template as necessary, e.g. to add IB environment variables.
+5. Adjust [job.rms](job.rms) template as necessary.
     ```
     #!/bin/bash
      
@@ -44,6 +52,7 @@ This repository provides a set of tools to benchmark different cloud providers h
     module add {{ MODULE }}
     cd $PBS_O_WORKDIR
      
+    # InfiniBand environment variables
     export I_MPI_FABRICS=shm:dapl
     export I_MPI_DAPL_PROVIDER=ofa-v2-cma-roe-enp94s0f0
     export I_MPI_DYNAMIC_CONNECTION=0
@@ -55,6 +64,8 @@ This repository provides a set of tools to benchmark different cloud providers h
     end=`date +%s`
     echo $((end-start)) > {{ RUNTIME_FILE }}
     ```
+    
+    The above syntax is for PBS/Torque resource manager. When needed, this file can be replaced to accomondate for other resource managers (ie. SLURM or LSF).
 
 6. Adjust modules and RMS settings in [settings.py](settings.py) as necessary, e.g set PPN to maximum number of cores per node.
 
@@ -62,12 +73,12 @@ This repository provides a set of tools to benchmark different cloud providers h
     - http://www.advancedclustering.com/act_kb/tune-hpl-dat-file
     - http://hpl-calculator.sourceforge.net/
 
-6. Prepare the cases
+6. Prepare the bechmark cases
 
     ```bash
-        python run.py --prepare                 # prepares all cases
-        python run.py --prepare --type hpl      # prepares only hpl cases
-        python run.py --prepare --name hpl-01   # prepares only hpl-01 case
+        python run.py --prepare                              # prepares all cases
+        python run.py --prepare --type hpl --type vasp       # prepares only hpl and vasp cases
+        python run.py --prepare --name hpl-01 --name hpl-02  # prepares only hpl-{01,02} cases
     ```
 
 7. Run the cases and waits for them to finish
@@ -85,11 +96,11 @@ This repository provides a set of tools to benchmark different cloud providers h
         python run.py --results --name hpl-01   # print only hpl-01 results
     ```
 
-## How to add a new HPL case
+# How to add a new HPL case
 
 1. Open [hpl.json](cases/hpl.json) file and add the HPL config for the new case.
 
-## How to add a new VASP case
+# How to add a new VASP case
 
 1. Put the POSCAR into the [POSCARS](benchmarks/vasp/POSCARS) directory or reuse existing ones
 
@@ -146,7 +157,7 @@ This repository provides a set of tools to benchmark different cloud providers h
 
 6. Adjust `kgrid` as necessary. The object is passed to `KPOINTS` template specified in `inputs` to create KPOINTS file. Adjust `KPOINTS` template or add new ones for extra parameters.
 
-## How to add a new GROMACS case 
+# How to add a new GROMACS case 
 
 1. Put the tpr file into the [inputs](benchmarks/gromacs/inputs) directory or reuse existing ones
 
@@ -172,6 +183,6 @@ This repository provides a set of tools to benchmark different cloud providers h
     ```
 
 
-## Cases with similar configs
+# Cases with similar configs
 
-If you want to add multiple cases with similar config, put the shared config into a separate file and use it to generate cases to avoid config duplication. See [vasp-elb](cases/__init__.py) cases for more information.
+If you want to add multiple cases with similar configs, put the shared config into a separate file and use it to generate cases to avoid  duplication. See [vasp-elb](cases/__init__.py) cases for more information.
