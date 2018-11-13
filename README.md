@@ -10,7 +10,7 @@ We use this tool to benchmark cloud provider systems agains the cases supported 
 
 Readers are welcome to submit their contributions for other hardware and software configurations.
 
-# How to run benchmarks
+## Run Benchmarks
 
 1. Make sure cluster is properly configured and it is up and running
 
@@ -96,11 +96,19 @@ Readers are welcome to submit their contributions for other hardware and softwar
         python run.py --results --name hpl-01   # print only hpl-01 results
     ```
 
-# How to add a new HPL case
+
+## Contribute
+
+This is an open-source repository and we welcome contributions for other test cases. 
+We suggest forking this repository and introducing the adjustments there. 
+The changes in the fork can further be considered for merging into this repository as it is commonly used on Github. 
+This process is explained in more details [here](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
+
+### How to add a new HPL case
 
 1. Open [hpl.json](cases/hpl.json) file and add the HPL config for the new case.
 
-# How to add a new VASP case
+### How to add a new VASP case
 
 1. Put the POSCAR into the [POSCARS](benchmarks/vasp/POSCARS) directory or reuse existing ones
 
@@ -157,7 +165,7 @@ Readers are welcome to submit their contributions for other hardware and softwar
 
 6. Adjust `kgrid` as necessary. The object is passed to `KPOINTS` template specified in `inputs` to create KPOINTS file. Adjust `KPOINTS` template or add new ones for extra parameters.
 
-# How to add a new GROMACS case 
+### How to add a new GROMACS case 
 
 1. Put the tpr file into the [inputs](benchmarks/gromacs/inputs) directory or reuse existing ones
 
@@ -183,6 +191,19 @@ Readers are welcome to submit their contributions for other hardware and softwar
     ```
 
 
-# Cases with similar configs
+### Cases with similar configs
 
 If you want to add multiple cases with similar configs, put the shared config into a separate file and use it to generate cases to avoid  duplication. See [vasp-elb](cases/__init__.py) cases for more information.
+
+
+## Submit Benchmark Results
+
+Please submit your benchmark results to info@exabyte.io. We will verify the information and may ask the supplier to establish direct contact between the installation site and us to verify the given information.
+
+By submitting your benchmark results you agree to the following terms and conditions:
+
+1. To the best of your knowledge, the information you provide is correct, complete and accurate.
+
+2. You acknowledge and agree that the decision to include or not include your data into our reports is not subject to judicial review.
+
+3. Exabyte with or without prior notice and with or without reason adjusts the reports. This process and decision is not subject to judicial review.
