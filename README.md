@@ -1,4 +1,4 @@
-# exabyte-benchmarks
+# Exabyte Benchmarks
 
 This repository provides a set of tools to benchmark hardware for distributed computing.
 
