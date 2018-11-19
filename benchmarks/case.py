@@ -72,7 +72,7 @@ class Case(object):
         """
         Creates case working directory.
         """
-        if not os.path.exists(self.work_dir): os.mkdir(self.work_dir)
+        if not os.path.exists(self.work_dir): os.makedirs(self.work_dir)
 
     def _create_rms_job_script(self):
         """
