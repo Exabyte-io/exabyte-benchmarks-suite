@@ -13,7 +13,7 @@ def write(path, content, mode="w+"):
         f.write(content)
 
 
-def get_class_by_refernce(reference):
+def get_class_by_reference(reference):
     """
     Returns property class for a given property name.
 

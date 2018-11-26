@@ -4,7 +4,7 @@ import argparse
 from tabulate import tabulate
 
 from cases import CASES
-from benchmarks.utils import get_class_by_refernce
+from benchmarks.utils import get_class_by_reference
 
 
 def parse_arguments():
@@ -27,7 +27,7 @@ if __name__ == '__main__':
         for input_ in case["config"].get("inputs", []):
             if input_["template"]: input_["template"] = os.path.join(cwd, input_["template"])
         dir_ = os.path.join(cwd, "benchmarks", case["type"], "cases", case["name"])
-        cases.append(get_class_by_refernce(case["reference"])(case["name"], case["config"], dir_))
+        cases.append(get_class_by_reference(case["reference"])(case["name"], case["config"], dir_))
 
     if args.execute: [case.execute() for case in cases]
     if args.prepare: [case.prepare() for case in cases]
