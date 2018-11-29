@@ -194,16 +194,3 @@ This process is explained in more details [here](https://gist.github.com/Chaser3
 ### Cases with similar configs
 
 If you want to add multiple cases with similar configs, put the shared config into a separate file and use it to generate cases to avoid  duplication. See [vasp-elb](cases/__init__.py) cases for more information.
-
-
-## Submit Benchmark Results
-
-Please submit your benchmark results to info@exabyte.io. We will verify the information and may ask the supplier to establish direct contact between the installation site and us to verify the given information.
-
-By submitting your benchmark results you agree to the following terms and conditions:
-
-1. To the best of your knowledge, the information you provide is correct, complete and accurate.
-
-2. You acknowledge and agree that the decision to include or not include your data into our reports is not subject to judicial review.
-
-3. Exabyte with or without prior notice and with or without reason adjusts the reports. This process and decision is not subject to judicial review.
