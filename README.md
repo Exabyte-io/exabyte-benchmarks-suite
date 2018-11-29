@@ -65,7 +65,8 @@ Readers are welcome to submit their contributions for other hardware and softwar
     echo $((end-start)) > {{ RUNTIME_FILE }}
     ```
     
-    The above syntax is for PBS/Torque resource manager. When needed, this file can be replaced to accomondate for other resource managers (ie. SLURM or LSF).
+    The above syntax is for PBS/Torque resource manager. 
+    When needed, this file can be replaced to accomondate for other resource managers (ie. SLURM or LSF).
 
 6. Adjust modules and RMS settings in [settings.py](settings.py) as necessary, e.g set PPN to maximum number of cores per node.
 
