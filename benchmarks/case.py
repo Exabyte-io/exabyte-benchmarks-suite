@@ -1,3 +1,6 @@
+import re
+import datetime
+
 from copy import deepcopy
 from jinja2 import Template
 
@@ -36,7 +39,6 @@ class Case(object):
             "walltime": WALLTIME,
             "notify": NOTIFY,
             "email": EMAIL,
-            "runtime_file": RUNTIME_FILE,
         }
 
     def _get_rms_context(self):
@@ -56,7 +58,9 @@ class Case(object):
             "EMAIL": self.config["email"],
             "MODULE": self.config["module"],
             "COMMAND": self.config["command"],
-            "RUNTIME_FILE": self.config["runtime_file"],
+            "RUNTIME_FILE": RUNTIME_FILE,
+            "CPU_INFO_FILE": CPU_INFO_FILE,
+            "MEM_INFO_FILE": MEM_INFO_FILE,
         }
 
     def _get_application_context(self):
@@ -79,7 +83,7 @@ class Case(object):
         Renders the job RMS template with RMS context and creates the job script file on case working directory.
         """
         job_path = os.path.join(self.work_dir, RMS_JOB_FILE_NAME)
-        job_content = Template(read(RMS_JOB_TEMPLATE_FILE)).render(self._get_rms_context())
+        job_content = Template(read(RMS_JOB_FILE_PATH)).render(self._get_rms_context())
         write(job_path, job_content)
 
     def _create_input_files(self):
@@ -108,6 +112,44 @@ class Case(object):
         """
         os.system("cd {}; {} {}".format(self.work_dir, QSUB_COMMAND, RMS_JOB_FILE_NAME))
 
+    def get_runtime(self):
+        """
+        Returns case runtime.
+        """
+        runtime = "-"
+        runtime_file = os.path.join(self.work_dir, RUNTIME_FILE)
+        if os.path.exists(runtime_file): runtime = read(runtime_file)
+        return runtime.rstrip("\n")
+
+    def get_match_data(self, filename, regex):
+        """
+        Applies the given regex on the file and returns match data.
+        Args:
+            filename (str): file name.
+            regex (str): regular expression to apply.
+
+        Returns:
+            str
+        """
+        data = "-"
+        file_ = os.path.join(self.work_dir, filename)
+        if os.path.exists(file_):
+            matches = re.findall(regex, read(file_))
+            if len(matches) > 0: data = matches[0]
+        return data
+
+    def get_memory(self):
+        """
+        Returns total memory.
+        """
+        return self.get_match_data(MEM_INFO_FILE, 'MemTotal:\s+([0-9]+)\s+kB')
+
+    def get_cpu_model(self):
+        """
+        Returns CPU model.
+        """
+        return self.get_match_data(CPU_INFO_FILE, 'model name\s+:\s+(.*)')
+
     def results(self):
         """
         Returns a flattened dictionary containing the results. Keys will be used as headers and Values as a row.
@@ -115,12 +157,22 @@ class Case(object):
         Returns:
             dict
         """
-        runtime = '-'
-        runtime_file = os.path.join(self.work_dir, RUNTIME_FILE)
-        if os.path.exists(runtime_file): runtime = read(runtime_file)
         return {
-            "NAME": self.name,
-            "PPN": self.config["ppn"],
-            "NODES": self.config["nodes"],
-            "RUNTIME": runtime.rstrip("\n")
+            "siteName": SITE_NAME,
+            "siteLocation": SITE_LOCATION,
+            "type": self.config["type"],
+            "name": self.name,
+            "nodes": self.config["nodes"],
+            "ppn": self.config["ppn"],
+            "runtime": self.get_runtime(),
+            "memory": self.get_memory(),
+            "cpuModel": self.get_cpu_model(),
+            "createdAt": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            "extraParams": self.get_extra_params()
         }
+
+    def get_extra_params(self):
+        """
+        Returns extra params to be used in the results.
+        """
+        return {}

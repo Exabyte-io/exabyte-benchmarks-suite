@@ -90,13 +90,12 @@ Readers are welcome to submit their contributions for other hardware and softwar
         python run.py --execute --name hpl-01   # execute only hpl-01 case
     ```
 
-8. Get the results
+8. Store the results
     ```bash
-        python run.py --results                 # print all results
-        python run.py --results --type hpl      # print only hpl results
-        python run.py --results --name hpl-01   # print only hpl-01 results
+        python run.py --results                 # store all results
+        python run.py --results --type hpl      # store only hpl results
+        python run.py --results --name hpl-01   # store only hpl-01 results
     ```
-
 
 ## Contribute
 
@@ -191,7 +190,59 @@ This process is explained in more details [here](https://gist.github.com/Chaser3
     }
     ```
 
+### Results Schema
 
-### Cases with similar configs
+The following shows the results schema.
 
-If you want to add multiple cases with similar configs, put the shared config into a separate file and use it to generate cases to avoid  duplication. See [vasp-elb](cases/__init__.py) cases for more information.
+```json
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "siteName": {
+            "description": "Site name, e.g. AWS-NHT",
+            "type": "string"
+        },
+        "siteLocation": {
+            "description": "Site location, e.g. West Us",
+            "type": "string"
+        },
+        "type": {
+            "description": "Benchmark type, e.g. hpl",
+            "type": "string"
+        },
+        "case": {
+            "description": "Benchmark case, e.g. hpl-01",
+            "type": "string"
+        },
+        "nodes": {
+            "description": "Number of nodes used for the case",
+            "type": "number"
+        },
+        "ppn": {
+            "description": "Number of cores per node used for the case",
+            "type": "number"
+        },
+        "runtime": {
+            "description": "Benchmark runtime",
+            "type": "number"
+        },
+        "memory": {
+            "description": "Compute node total memory",
+            "type": "number"
+        },
+        "cpuModel": {
+            "description": "Compute node CPU model. e.g. Intel(R) Xeon(R) CPU E5-2666 v3 @ 2.90GHz",
+            "type": "string"
+        },
+        "createdAt": {
+            "description": "Benchmark creation time",
+            "type": "string"
+        },
+        "extraParams": {
+            "type": "object",
+            "description": "Any other extra extraParams, e.g. GFLOPS"
+        }
+    }
+}
+```

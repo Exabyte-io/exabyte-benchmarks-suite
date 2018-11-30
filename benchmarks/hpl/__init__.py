@@ -44,7 +44,7 @@ class HPLCase(Case):
             "Q": self.config["Q"]
         }
 
-    def _get_hpl_results(self):
+    def get_extra_params(self):
         """
         Parses the output and extracts the result.
 
@@ -65,14 +65,3 @@ class HPLCase(Case):
             "TIME": results[4],
             "GFLOPS": results[5]
         }
-
-    def results(self):
-        """
-        Returns a flattened dictionary containing the results. Keys will be used as headers and Values as a row.
-
-        Returns:
-            dict
-        """
-        results = super(HPLCase, self).results()
-        results.update(self._get_hpl_results())
-        return results

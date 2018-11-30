@@ -1,8 +1,15 @@
 import os
 
+SITE_NAME = ""
+SITE_LOCATION = ""
+
 RUNTIME_FILE = "runtime"
+CPU_INFO_FILE = "cpuinfo"
+MEM_INFO_FILE = "meminfo"
 RMS_JOB_FILE_NAME = "job.rms"
-RMS_JOB_TEMPLATE_FILE = os.path.join(os.path.dirname(__file__), "job.rms")
+RESULTS_FILE_NAME = "results.json"
+RESULTS_FILE_PATH = os.path.join(os.path.dirname(__file__), RESULTS_FILE_NAME)
+RMS_JOB_FILE_PATH = os.path.join(os.path.dirname(__file__), RMS_JOB_FILE_NAME)
 
 # RMS
 PPN = 36
@@ -32,3 +39,7 @@ REGEX = {
     'double': r'[-+]?\d*\.\d+(?:[eE][-+]?\d+)?',
 }
 HPL_RESULT_REGEX = r'.*\s+({0})\s+({0})\s+({0})\s+({0})\s+({1})\s+({1})'.format(REGEX["int"], REGEX["double"])
+
+METRICS_REGISTRY = {
+    "performance-per-core": "metrics.performance_per_core.PerformancePerCore"
+}
