@@ -1,10 +1,9 @@
 import os
-import json
 import argparse
 
 from cases import CASES
+from results import ResultsHandler
 from benchmarks.utils import get_class_by_reference
-from settings import RESULTS_FILE_PATH, METRICS_REGISTRY
 
 
 def parse_arguments():
@@ -20,44 +19,10 @@ def parse_arguments():
     return parser.parse_args()
 
 
-def are_results_equal(old, new):
-    return old["siteName"] != new["siteName"] and old["type"] != new["type"] and old["name"] != new["name"]
-
-
-def store_results(cases_):
-    """
-    Stores results locally on RESULTS_FILE_PATH as JSON.
-    """
-    with open(RESULTS_FILE_PATH, "r+") as f:
-        results_ = json.loads(f.read() or "[]")
-        for case_ in cases_:
-            case_results = case_.results()
-            push_case_results_to_remote_source(case_results)
-            results_ = [r for r in results_ if not are_results_equal(r, case_results)]
-            results_.append(case_results)
-        f.seek(0)
-        f.write(json.dumps(results_, indent=4))
-
-
-def push_case_results_to_remote_source(case_results):
-    """
-    Pushes the case results to the remote source (Google Sheet).
-
-    Args:
-        case_results (dict): case results.
-    """
-    pass
-
-
 if __name__ == '__main__':
     args = parse_arguments()
 
-    if args.plot:
-        site_names = args.site_names
-        with open(RESULTS_FILE_PATH) as f:
-            results = json.loads(f.read())
-        metric = get_class_by_reference(METRICS_REGISTRY[args.metric])(results)
-        metric.plot(site_names)
+    if args.plot: ResultsHandler().plot(args.site_names, args.metric)
 
     if args.prepare or args.execute or args.results:
         cases = []
@@ -72,4 +37,4 @@ if __name__ == '__main__':
 
         if args.prepare: [case.prepare() for case in cases]
         if args.execute: [case.execute() for case in cases]
-        if args.results: store_results(cases)
+        if args.results: ResultsHandler().store([case.results() for case in cases])
