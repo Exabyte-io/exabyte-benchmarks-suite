@@ -41,5 +41,5 @@ REGEX = {
 HPL_RESULT_REGEX = r'.*\s+({0})\s+({0})\s+({0})\s+({0})\s+({1})\s+({1})'.format(REGEX["int"], REGEX["double"])
 
 METRICS_REGISTRY = {
-    "performance-per-core": "metrics.performance_per_core.PerformancePerCore"
+    "PerformancePerCore": "metrics.performance_per_core.PerformancePerCore"
 }

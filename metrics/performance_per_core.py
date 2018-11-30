@@ -7,7 +7,7 @@ class PerformancePerCore(Metric):
     """
 
     def __init__(self, results):
-        super(PerformancePerCore, self).__init__("Performance Per Core", results)
+        super(PerformancePerCore, self).__init__("PerformancePerCore", results)
 
     def series(self, site_names):
         series = []
