@@ -45,8 +45,9 @@ class ResultsHandler(object):
         Stores results on remote source (Google Spreadsheets).
         """
         session = requests.Session()
+        data = {"results": results}
         headers = {"Content-Type": "application/json"}
-        response = session.request(method="put", url=API_URL, data=results, headers=headers)
+        response = session.request(method="put", url=API_URL, data=data, headers=headers)
         response.raise_for_status()
 
     def plot(self, site_names, metric):

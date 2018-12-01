@@ -157,7 +157,7 @@ class Case(object):
         Returns:
             dict
         """
-        return {
+        results_ = {
             "siteName": SITE_NAME,
             "siteLocation": SITE_LOCATION,
             "type": self.config["type"],
@@ -168,11 +168,12 @@ class Case(object):
             "memory": self.get_memory(),
             "cpuModel": self.get_cpu_model(),
             "createdAt": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-            "extraParams": self.get_extra_params()
         }
+        results_.update(self.get_extra_results())
+        return results_
 
-    def get_extra_params(self):
+    def get_extra_results(self):
         """
-        Returns extra params to be used in the results.
+        Returns extra results to add to the main results.
         """
         return {}

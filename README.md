@@ -238,10 +238,6 @@ The following shows the results schema.
         "createdAt": {
             "description": "Benchmark creation time",
             "type": "string"
-        },
-        "extraParams": {
-            "type": "object",
-            "description": "Any other extra extraParams, e.g. GFLOPS"
         }
     }
 }

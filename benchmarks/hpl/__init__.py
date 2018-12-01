@@ -44,9 +44,9 @@ class HPLCase(Case):
             "Q": self.config["Q"]
         }
 
-    def get_extra_params(self):
+    def get_extra_results(self):
         """
-        Parses the output and extracts the result.
+        Returns extra results to add to the main results.
 
         Returns:
             dict
@@ -62,6 +62,5 @@ class HPLCase(Case):
             "NB": results[1],
             "P": results[2],
             "Q": results[3],
-            "TIME": results[4],
             "GFLOPS": results[5]
         }
