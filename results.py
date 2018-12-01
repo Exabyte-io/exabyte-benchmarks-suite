@@ -1,7 +1,8 @@
 import json
+import requests
 
 from benchmarks.utils import get_class_by_reference
-from settings import RESULTS_FILE_PATH, METRICS_REGISTRY
+from settings import RESULTS_FILE_PATH, METRICS_REGISTRY, API_URL
 
 
 class ResultsHandler(object):
@@ -10,6 +11,7 @@ class ResultsHandler(object):
     """
 
     def store(self, results):
+        results = [r for r in results if r["runtime"]]
         self.store_results_in_local_source(results)
         self.store_results_in_remote_source(results)
 
@@ -40,9 +42,12 @@ class ResultsHandler(object):
 
     def store_results_in_remote_source(self, results):
         """
-        Pushes the results to the remote source (Google Spreadsheets).
+        Stores results on remote source (Google Spreadsheets).
         """
-        pass
+        session = requests.Session()
+        headers = {"Content-Type": "application/json"}
+        response = session.request(method="put", url=API_URL, data=results, headers=headers)
+        response.raise_for_status()
 
     def plot(self, site_names, metric):
         """

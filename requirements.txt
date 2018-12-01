@@ -1,3 +1,4 @@
 jinja2==2.8
 tabulate==0.7.5
+requests==2.20.1
 matplotlib==2.2.3
