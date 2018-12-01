@@ -59,3 +59,5 @@ target/
 
 # MacOS X
 .DS_Store
+
+spreadsheets.py
