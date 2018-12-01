@@ -47,7 +47,7 @@ class ResultsHandler(object):
         session = requests.Session()
         data = {"results": results}
         headers = {"Content-Type": "application/json"}
-        response = session.request(method="put", url=API_URL, data=data, headers=headers)
+        response = session.request(method="PUT", url=API_URL, data=json.dumps(data), headers=headers)
         response.raise_for_status()
 
     def plot(self, site_names, metric):
