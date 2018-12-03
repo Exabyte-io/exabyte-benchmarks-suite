@@ -10,7 +10,9 @@ RMS_JOB_FILE_NAME = "job.rms"
 RESULTS_FILE_NAME = "results.json"
 RESULTS_FILE_PATH = os.path.join(os.path.dirname(__file__), RESULTS_FILE_NAME)
 RMS_JOB_FILE_PATH = os.path.join(os.path.dirname(__file__), RMS_JOB_FILE_NAME)
-API_URL = "https://us-central1-exabyte-io.cloudfunctions.net/Exabyte-Benchmarks-Results"
+
+PUBLISH_RESULTS = True
+REMOTE_SOURCE_API_URL = "https://us-central1-exabyte-io.cloudfunctions.net/Exabyte-Benchmarks-Results"
 
 # RMS
 PPN = 36

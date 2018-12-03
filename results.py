@@ -2,7 +2,7 @@ import json
 import requests
 
 from benchmarks.utils import get_class_by_reference
-from settings import RESULTS_FILE_PATH, METRICS_REGISTRY, API_URL
+from settings import RESULTS_FILE_PATH, METRICS_REGISTRY, REMOTE_SOURCE_API_URL, PUBLISH_RESULTS
 
 
 class ResultsHandler(object):
@@ -13,7 +13,7 @@ class ResultsHandler(object):
     def store(self, results):
         results = [r for r in results if r["runtime"]]
         self.store_results_in_local_source(results)
-        self.store_results_in_remote_source(results)
+        if PUBLISH_RESULTS: self.store_results_in_remote_source(results)
 
     def are_results_equal(self, old, new):
         """
@@ -47,7 +47,7 @@ class ResultsHandler(object):
         session = requests.Session()
         data = {"results": results}
         headers = {"Content-Type": "application/json"}
-        response = session.request(method="PUT", url=API_URL, data=json.dumps(data), headers=headers)
+        response = session.request(method="PUT", url=REMOTE_SOURCE_API_URL, data=json.dumps(data), headers=headers)
         response.raise_for_status()
 
     def plot(self, site_names, metric):

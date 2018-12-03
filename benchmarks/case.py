@@ -1,4 +1,5 @@
 import re
+import uuid
 import datetime
 
 from copy import deepcopy
@@ -158,7 +159,7 @@ class Case(object):
             dict
         """
         results_ = {
-            "siteName": SITE_NAME,
+            "siteName": "-".join((SITE_NAME, uuid.getnode())),
             "siteLocation": SITE_LOCATION,
             "type": self.config["type"],
             "name": self.name,
