@@ -68,13 +68,15 @@ Readers are welcome to submit their contributions for other hardware and softwar
     The above syntax is for PBS/Torque resource manager. 
     When needed, this file can be replaced to accomondate for other resource managers (ie. SLURM or LSF).
 
-6. Adjust modules and RMS settings in [settings.py](settings.py) as necessary, e.g set PPN to maximum number of cores per node.
+6. Set site name and location in [settings.py](settings.py). These settings are important to uniquely identify the sites.
 
-6. Adjust HPL config in [hpl.json](cases/hpl.json). You can use the below links to generate the config
+7. Adjust modules and RMS settings in [settings.py](settings.py) as necessary, e.g set PPN to maximum number of cores per node.
+
+8. Adjust HPL config in [hpl.json](cases/hpl.json). You can use the below links to generate the config
     - http://www.advancedclustering.com/act_kb/tune-hpl-dat-file
     - http://hpl-calculator.sourceforge.net/
 
-6. Prepare the bechmark cases
+9. Prepare the bechmark cases
 
     ```bash
         python run.py --prepare                              # prepares all cases
@@ -82,7 +84,7 @@ Readers are welcome to submit their contributions for other hardware and softwar
         python run.py --prepare --name hpl-01 --name hpl-02  # prepares only hpl-{01,02} cases
     ```
 
-7. Run the cases and waits for them to finish
+10. Run the cases and waits for them to finish
 
     ```bash
         python run.py --execute                 # execute all cases
@@ -90,7 +92,7 @@ Readers are welcome to submit their contributions for other hardware and softwar
         python run.py --execute --name hpl-01   # execute only hpl-01 case
     ```
 
-8. Store the results
+11. Store the results
     ```bash
         python run.py --results                 # store all results
         python run.py --results --type hpl      # store only hpl results
