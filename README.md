@@ -99,6 +99,12 @@ Readers are welcome to submit their contributions for other hardware and softwar
         python run.py --results --name hpl-01   # store only hpl-01 results
     ```
 
+12. Plot the results
+    ```bash
+        python run.py --plot --metric PerformancePerCore  # compare all sites
+        python run.py --plot --metric SpeedupRatio --site-name AWS-NHT --site-name AZURE-IB-H  # compare given sites
+    ```
+
 ## Contribute
 
 This is an open-source repository and we welcome contributions for other test cases. 
@@ -192,9 +198,16 @@ This process is explained in more details [here](https://gist.github.com/Chaser3
     }
     ```
 
+### How to add a new metric
+
+1. Create a class inside [metrics](metrics) package and inherit it from base [Metric](metrics/__init__.py) class, e.g. [PerformancePerCore](metrics/performance_per_core.py).
+
+2. Implement `config` and `plot` methods as necessary
+
+
 ### Results Schema
 
-The following shows the results schema.
+The following shows the schema to store the results. Results have to be stored on one-level dictionary (no nested key) so that it can be easily flattened.
 
 ```json
 {
@@ -244,3 +257,8 @@ The following shows the results schema.
     }
 }
 ```
+
+## Publishing Results
+
+Benchmarks results are automatically published to [Google Spreadsheets](https://docs.google.com/spreadsheets/d/1oBHR8bp9q86MOxGYXcvUWHZa8KiC-uc_qX-UF1iqf-Y/edit) when `python run.py --results` is invoked. Set `PUBLISH_RESULTS` to `False` to disable the feature.
+Please note that the data stored in the Google Spreadsheet is row and may not be accurate. We will clean up the data to make sure the data is accurate. In order to assert data integrity we may ask the sire administrators to facilitate our access to run the benchmarks.

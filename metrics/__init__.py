@@ -10,6 +10,9 @@ class Metric(object):
         self.name = name
         self.results = results
 
+    def get_all_site_names(self):
+        return list(set([result["siteName"] for result in self.results]))
+
     def config(self, site_names):
         """
         Returns the config that is passed to matplot.
