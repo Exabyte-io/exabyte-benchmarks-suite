@@ -62,5 +62,6 @@ class HPLCase(Case):
             "NB": results[1],
             "P": results[2],
             "Q": results[3],
+            "TIME": results[4],
             "GFLOPS": results[5]
         }
