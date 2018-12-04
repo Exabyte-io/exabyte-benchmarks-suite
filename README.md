@@ -260,5 +260,5 @@ The following shows the schema to store the results. Results have to be stored o
 
 ## Publishing Results
 
-Benchmarks results are automatically published to [Google Spreadsheets](https://docs.google.com/spreadsheets/d/1oBHR8bp9q86MOxGYXcvUWHZa8KiC-uc_qX-UF1iqf-Y/edit) when `python run.py --results` is invoked. Set `PUBLISH_RESULTS` to `False` to disable the feature.
-Please note that the data stored in the Google Spreadsheet is row and may not be accurate. We will clean up the data to make sure the data is accurate. In order to assert data integrity we may ask the sire administrators to facilitate our access to run the benchmarks.
+Benchmarks results are automatically published to [Google Spreadsheets](https://docs.google.com/spreadsheets/d/1oBHR8bp9q86MOxGYXcvUWHZa8KiC-uc_qX-UF1iqf-Y/edit) when `python run.py --results` is invoked. Set `PUBLISH_RESULTS` to `False` in [settings.py](settings.py) to disable the feature.
+Please note that the data stored in the Google Spreadsheets is row and may not be accurate. We will clean up the data and assert the data integrity. To do so we may ask the sites to facilitate our access to run the benchmarks.
