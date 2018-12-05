@@ -17,6 +17,7 @@ Readers are welcome to submit their contributions for other hardware and softwar
 
 ## Requirements
 
+
 It is assumed that the benchmarks are executed on a computing cluster containing a resource management system (RMS) such as Torque/PBS (supported by default). In order to support other RMS such as SLURM or LSF, users can follow the explanation in [Configuration](#configuration) section below.
 
 By default, [Environment Modules](http://modules.sourceforge.net/) are used to load the software applications needed by the benchmarks.
