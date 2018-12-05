@@ -10,12 +10,12 @@ CWD = os.path.dirname(__file__)
 for nodes in NODES_CONFIGURATION:
     for ppn in PPN_CONFIGURATION:
         for type_ in ["elb", "kpt"]:
-            config = {
+            config = read_json(os.path.join(CWD, "{}-cases.json".format(type_)))
+            config.update({"nodes": nodes, "ppn": ppn})
+            case_config = {
                 "name": "-".join((type_, "{0:0=2d}".format(nodes), "{0:0=2d}".format(ppn))),
                 "type": "vasp",
                 "reference": "benchmarks.vasp.VASPCase",
-                "nodes": nodes,
-                "ppn": ppn
+                "config": config
             }
-            config.update(read_json(os.path.join(CWD, "{}-cases.json".format(type_))))
-            VASP_CASES.append(config)
+            VASP_CASES.append(case_config)
