@@ -208,3 +208,4 @@ This section explains how to add new benchmark cases.
 
 3. Register the new metric inside [METRICS_REGISTRY](settings.py).
 
+

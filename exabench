@@ -4,7 +4,7 @@ import os
 import argparse
 
 from cases import CASES
-from results import ResultsHandler
+from results.handler import ResultsHandler
 from benchmarks.utils import get_class_by_reference
 
 

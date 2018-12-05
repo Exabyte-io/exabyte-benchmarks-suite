@@ -20,7 +20,7 @@ RMS_JOB_FILE_PATH = os.path.join(os.path.dirname(__file__), RMS_JOB_FILE_NAME)
 
 # Name of the JSON file to store the benchmark results.
 RESULTS_FILE_NAME = "results.json"
-RESULTS_FILE_PATH = os.path.join(os.path.dirname(__file__), RESULTS_FILE_NAME)
+RESULTS_FILE_PATH = os.path.join(os.path.dirname(__file__), "results", RESULTS_FILE_NAME)
 
 # Whether to publish the results. Set it to False to disable it.
 PUBLISH_RESULTS = True
