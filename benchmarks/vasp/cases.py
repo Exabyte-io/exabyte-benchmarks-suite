@@ -18,3 +18,4 @@ for nodes in NODES_CONFIGURATION:
                 "ppn": ppn
             }
             config.update(read_json(os.path.join(CWD, "{}-cases.json".format(type_))))
+            VASP_CASES.append(config)
