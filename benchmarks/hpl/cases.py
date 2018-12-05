@@ -7,9 +7,10 @@ CWD = os.path.dirname(__file__)
 
 # Generate HPL cases
 for config in read_json(os.path.join(CWD, "cases.json")):
-    HPL_CASES.append({
+    case_config = {
         "name": "-".join(("hpl", "{0:0=2d}".format(config["nodes"]))),
         "type": "hpl",
         "reference": "benchmarks.hpl.HPLCase",
-        "config": config
-    })
+    }
+    case_config.update(config)
+    HPL_CASES.append(case_config)
