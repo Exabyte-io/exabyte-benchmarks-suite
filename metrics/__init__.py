@@ -23,7 +23,14 @@ class Metric(object):
         """
         raise NotImplemented
 
-    def plot(self, site_names):
+    def plot(self, site_names=None):
+        """
+        Generates the chart for the given site names.
+
+        Args:
+            site_names (list): a list of site names.
+        """
+        if not site_names: site_names = self.get_all_site_names()
         config = self.config(site_names)
         plt.xlabel(config["xLabel"])
         plt.ylabel(config["yLabel"])

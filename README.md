@@ -14,18 +14,20 @@ Readers are welcome to submit their contributions for other hardware and softwar
 
 1. Make sure cluster is properly configured and it is up and running
 
-2. Clone the repository into the user home directory
+2. [Install git-lfs](https://help.github.com/articles/installing-git-large-file-storage/) in order to get files stroed on git LFS.
+
+3. Clone the repository into the user home directory
     
     ```bash
     git clone git@github.com:Exabyte-io/exabyte-benchmarks.git
     ```
 
-3. Install python virtualenv if you do not have it
+4. Install python virtualenv if you do not have it
     ```bash
     pip install virtualenv
     ```
 
-4. Install required python packages
+5. Install required python packages
 
     ```bash
     cd exabyte-benchmarks
@@ -34,7 +36,7 @@ Readers are welcome to submit their contributions for other hardware and softwar
     pip install -r requirements.txt
     ```
 
-5. Adjust [job.rms](job.rms) template as necessary.
+6. Adjust [job.rms](job.rms) template as necessary.
     ```
     #!/bin/bash
      
@@ -68,35 +70,41 @@ Readers are welcome to submit their contributions for other hardware and softwar
     The above syntax is for PBS/Torque resource manager. 
     When needed, this file can be replaced to accomondate for other resource managers (ie. SLURM or LSF).
 
-6. Set site name and location in [settings.py](settings.py). These settings are important to uniquely identify the sites.
+7. Set site name and location in [settings.py](settings.py). These settings are important to uniquely identify the sites.
 
-7. Adjust modules and RMS settings in [settings.py](settings.py) as necessary, e.g set PPN to maximum number of cores per node.
+8. Adjust modules and RMS settings in [settings.py](settings.py) as necessary, e.g set PPN to maximum number of cores per node.
 
-8. Adjust HPL config in [hpl.json](cases/hpl.json). You can use the below links to generate the config
+9. Adjust HPL config in [hpl.json](cases/hpl.json). You can use the below links to generate the config
     - http://www.advancedclustering.com/act_kb/tune-hpl-dat-file
     - http://hpl-calculator.sourceforge.net/
 
-9. Prepare the bechmark cases
+10. Prepare the benchmark cases
 
     ```bash
-        python run.py --prepare                              # prepares all cases
-        python run.py --prepare --type hpl --type vasp       # prepares only hpl and vasp cases
-        python run.py --prepare --name hpl-01 --name hpl-02  # prepares only hpl-{01,02} cases
+        exabench --prepare                              # prepares all cases
+        exabench --prepare --type hpl --type vasp       # prepares only hpl and vasp cases
+        exabench --prepare --name hpl-01 --name hpl-02  # prepares only hpl-{01,02} cases
     ```
 
-10. Run the cases and waits for them to finish
+11. Run the cases and wait for them to finish
 
     ```bash
-        python run.py --execute                 # execute all cases
-        python run.py --execute --type hpl      # execute only hpl cases
-        python run.py --execute --name hpl-01   # execute only hpl-01 case
+        exabench --execute                 # execute all cases
+        exabench --execute --type hpl      # execute only hpl cases
+        exabench --execute --name hpl-01   # execute only hpl-01 case
     ```
 
-11. Store the results
+12. Store the results
     ```bash
-        python run.py --results                 # store all results
-        python run.py --results --type hpl      # store only hpl results
-        python run.py --results --name hpl-01   # store only hpl-01 results
+        exabench --results                 # store all results
+        exabench --results --type hpl      # store only hpl results
+        exabench --results --name hpl-01   # store only hpl-01 results
+    ```
+
+13. Plot the results
+    ```bash
+        exabench --plot --metric PerformancePerCore  # compare all sites
+        exabench --plot --metric SpeedupRatio --site-name AWS-NHT --site-name AZURE-IB-H  # compare given sites
     ```
 
 12. Plot the results
@@ -207,7 +215,11 @@ This process is explained in more details [here](https://gist.github.com/Chaser3
 
 ### Results Schema
 
+<<<<<<< HEAD
 The following shows the schema to store the results. Results have to be stored on one-level dictionary (no nested key) so that it can be easily flattened.
+=======
+The following shows the schema to store the results. Results have to be stored in one-level dictionary (no nested keys) so that it can be easily flattened.
+>>>>>>> Code review comments
 
 ```json
 {
@@ -260,5 +272,10 @@ The following shows the schema to store the results. Results have to be stored o
 
 ## Publishing Results
 
+<<<<<<< HEAD
 Benchmarks results are automatically published to [Google Spreadsheets](https://docs.google.com/spreadsheets/d/1oBHR8bp9q86MOxGYXcvUWHZa8KiC-uc_qX-UF1iqf-Y/edit) when `python run.py --results` is invoked. Set `PUBLISH_RESULTS` to `False` in [settings.py](settings.py) to disable the feature.
 Please note that the data stored in the Google Spreadsheets is row and may not be accurate. We will clean up the data and assert the data integrity. To do so we may ask the sites to facilitate our access to run the benchmarks.
+=======
+Benchmarks results are automatically published to [Google Spreadsheets](https://docs.google.com/spreadsheets/d/1oBHR8bp9q86MOxGYXcvUWHZa8KiC-uc_qX-UF1iqf-Y/edit) when `exabench --results` is invoked. Set `PUBLISH_RESULTS` to `False` in [settings.py](settings.py) to disable the feature.
+Please note that the data stored in the Google Spreadsheets is raw and may not be accurate.
+>>>>>>> Code review comments

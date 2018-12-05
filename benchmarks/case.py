@@ -141,13 +141,21 @@ class Case(object):
 
     def get_memory(self):
         """
-        Returns total memory.
+        Returns total memory in GB.
+
+        Returns:
+            float
         """
-        return self.get_match_data(MEM_INFO_FILE, 'MemTotal:\s+([0-9]+)\s+kB')
+        memory = self.get_match_data(MEM_INFO_FILE, 'MemTotal:\s+([0-9]+)\s+kB')
+        if memory != "-": memory = float(memory) / (1024 ** 2)
+        return memory
 
     def get_cpu_model(self):
         """
-        Returns CPU model.
+        Returns CPU model, e.g. "Intel(R) Xeon(R) CPU E5-2667 v3".
+
+        Returns:
+            str
         """
         return self.get_match_data(CPU_INFO_FILE, 'model name\s+:\s+(.*)')
 
@@ -175,6 +183,6 @@ class Case(object):
 
     def get_extra_results(self):
         """
-        Returns extra results to add to the main results.
+        Returns benchmark-specific results to add to the main results.
         """
         return {}

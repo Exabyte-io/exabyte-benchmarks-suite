@@ -1,6 +1,12 @@
 import os
 
+# Name of the site where benchmarks are run. Should not contain space.
+# Should contain the cloud provider, company and cluster name and should be unique to identify the site.
+# Example: "AWS-C5-Exabyte-Cluster007
 SITE_NAME = ""
+
+# Name of the location where the benchmarks are run. Should contain information about the location of the SITE.
+# Example: "East-US-zone-a"
 SITE_LOCATION = ""
 
 RUNTIME_FILE = "runtime"
@@ -11,10 +17,10 @@ RESULTS_FILE_NAME = "results.json"
 RESULTS_FILE_PATH = os.path.join(os.path.dirname(__file__), RESULTS_FILE_NAME)
 RMS_JOB_FILE_PATH = os.path.join(os.path.dirname(__file__), RMS_JOB_FILE_NAME)
 
-PUBLISH_RESULTS = True
+PUBLISH_RESULTS = True  # whether to publish the results
 REMOTE_SOURCE_API_URL = "https://us-central1-exabyte-io.cloudfunctions.net/Exabyte-Benchmarks-Results"
 
-# RMS
+# Resource Management System (RMS)
 PPN = 36
 QUEUE = "OF"
 NOTIFY = "abe"
@@ -43,6 +49,7 @@ REGEX = {
 }
 HPL_RESULT_REGEX = r'.*\s+({0})\s+({0})\s+({0})\s+({0})\s+({1})\s+({1})'.format(REGEX["int"], REGEX["double"])
 
+# Metric registry: key => metric name in CamelCase, value => metric class reference
 METRICS_REGISTRY = {
     "SpeedupRatio": "metrics.speedup_ratio.SpeedupRatio",
     "PerformancePerCore": "metrics.performance_per_core.PerformancePerCore",
