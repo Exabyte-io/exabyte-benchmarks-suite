@@ -66,3 +66,8 @@ METRICS_REGISTRY = {
     "SpeedupRatio": "metrics.speedup_ratio.SpeedupRatio",
     "PerformancePerCore": "metrics.performance_per_core.PerformancePerCore",
 }
+
+# Specifies nodes and ppn configurations.
+# Cases are generated for all combinations.
+NODES_CONFIGURATION = [1, 2, 4, 8]
+PPN_CONFIGURATION = [4, 8, 12, 16]

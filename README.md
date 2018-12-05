@@ -27,6 +27,7 @@ Follow the explanation in [Configuration](#configuration) section below for syst
 1. Install [git-lfs](https://help.github.com/articles/installing-git-large-file-storage/) in order to get files stored on git LFS.
 
 2. Clone the repository into the user home directory
+
     ```bash
     git clone git@github.com:Exabyte-io/exabyte-benchmarks.git
     ```
@@ -66,6 +67,7 @@ If Environment Modules are not installed, one should adjust the `command` inside
 5. Adjust [HPL configs](benchmarks/hpl/cases.json). Use the below links to generate the initial configs.
     - http://www.advancedclustering.com/act_kb/tune-hpl-dat-file
     - http://hpl-calculator.sourceforge.net/
+
 
 ## Execution
 
@@ -205,4 +207,5 @@ This section explains how to add new benchmark cases.
 2. Implement `config` and `plot` methods accordingly.
 
 3. Register the new metric inside [METRICS_REGISTRY](settings.py).
+
 
