@@ -27,7 +27,6 @@ Follow the explanation in [Configuration](#configuration) section below for syst
 1. Install [git-lfs](https://help.github.com/articles/installing-git-large-file-storage/) in order to get files stored on git LFS.
 
 2. Clone the repository into the user home directory
-
     ```bash
     git clone git@github.com:Exabyte-io/exabyte-benchmarks.git
     ```
