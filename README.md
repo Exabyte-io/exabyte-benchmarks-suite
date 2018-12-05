@@ -207,4 +207,3 @@ This section explains how to add new benchmark cases.
 2. Implement `config` and `plot` methods accordingly.
 
 3. Register the new metric inside [METRICS_REGISTRY](settings.py).
-
