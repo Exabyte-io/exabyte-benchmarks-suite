@@ -1,33 +1,43 @@
-# Exabyte Benchmarks
+# Exabyte Benchmarks Suite (ExaBench)
 
-This repository provides a set of tools to benchmark hardware for distributed computing.
+This repository provides a command-line tool (`exabench`) to benchmark hardware for distributed computing.
 
-We use this tool to benchmark cloud provider systems agains the cases supported below, relevant for materials modeling:
+We use this tool to benchmark cloud provider systems for the cases supported below, relevant for materials modeling:
 
 - High-performance Linpack ([HPL](http://www.netlib.org/benchmark/hpl/))
 - [Vienna ab-initio simulations provider](https://www.vasp.at/)
 - [GROMACS](http://www.gromacs.org/)
 
-Readers are welcome to submit their contributions for other hardware and software configurations.
+More information about the test cases per each application, including the input sources, is provided inside their corresponding directories.
 
-## Run Benchmarks
+The latest benchmark results are maintained at this [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1oBHR8bp9q86MOxGYXcvUWHZa8KiC-uc_qX-UF1iqf-Y/edit). 
+Please note that the data stored there is preliminary/raw and so might not be accurate.
 
-1. Make sure cluster is properly configured and it is up and running
+Readers are welcome to submit their contributions for other hardware and software configurations following the guidelines in the [Contribution](#contribution) section below.
 
-2. [Install git-lfs](https://help.github.com/articles/installing-git-large-file-storage/) in order to get files stroed on git LFS.
+## Requirements
 
-3. Clone the repository into the user home directory
-    
+It is assumed that the benchmarks are executed on a computing cluster containing a resource management system (RMS) such as Torque/PBS (supported by default). In order to support other RMS such as SLURM or LSF, users can follow the explanation in [Configuration](#configuration) section below.
+
+By default, [Environment Modules](http://modules.sourceforge.net/) are used to load the software applications needed by the benchmarks.
+Follow the explanation in [Configuration](#configuration) section below for systems where Environment Modules are not available.
+
+## Installation
+
+1. Install [git-lfs](https://help.github.com/articles/installing-git-large-file-storage/) in order to get files stored on git LFS.
+
+2. Clone the repository into the user home directory
+
     ```bash
     git clone git@github.com:Exabyte-io/exabyte-benchmarks.git
     ```
 
-4. Install python virtualenv if you do not have it
+3. Install python virtualenv if it is not installed
     ```bash
     pip install virtualenv
     ```
 
-5. Install required python packages
+4. Install required python packages
 
     ```bash
     cd exabyte-benchmarks
@@ -36,101 +46,85 @@ Readers are welcome to submit their contributions for other hardware and softwar
     pip install -r requirements.txt
     ```
 
-6. Adjust [job.rms](job.rms) template as necessary.
+5. Add `exabench` command to `PATH`
+
+    ```bash
+    export PATH=`pwd`:${PATH}
     ```
-    #!/bin/bash
-     
-    #PBS -N {{ NAME }}
-    #PBS -j oe
-    #PBS -R n
-    #PBS -r n
-    #PBS -q {{ QUEUE }}
-    #PBS -l nodes={{ NODES }}
-    #PBS -l ppn={{ PPN }}
-    #PBS -l walltime={{ WALLTIME }}
-    #PBS -m {{ NOTIFY }}
-    #PBS -M {{ EMAIL }}
-     
-    module add {{ MODULE }}
-    cd $PBS_O_WORKDIR
-     
-    # InfiniBand environment variables
-    export I_MPI_FABRICS=shm:dapl
-    export I_MPI_DAPL_PROVIDER=ofa-v2-cma-roe-enp94s0f0
-    export I_MPI_DYNAMIC_CONNECTION=0
-     
-    start=`date +%s`
-     
-    {{ COMMAND }}
-     
-    end=`date +%s`
-    echo $((end-start)) > {{ RUNTIME_FILE }}
-    ```
-    
-    The above syntax is for PBS/Torque resource manager. 
-    When needed, this file can be replaced to accomondate for other resource managers (ie. SLURM or LSF).
 
-7. Set site name and location in [settings.py](settings.py). These settings are important to uniquely identify the sites.
+## Configuration
 
-8. Adjust modules and RMS settings in [settings.py](settings.py) as necessary, e.g set PPN to maximum number of cores per node.
+1. Adjust [job.rms](job.rms) template as necessary. Please note that the template is for PBS/Torque.
+In order to incorporate support for other resource managers one should adjust the RMS directives (`#PBS`) accordingly.
 
-9. Adjust HPL config in [hpl.json](cases/hpl.json). You can use the below links to generate the config
+2. Set site name and location in [settings.py](settings.py). These settings are important to uniquely identify the sites.
+
+3. Adjust RMS settings in [settings.py](settings.py) as necessary, e.g set PPN to maximum number of cores per node.
+
+4. Adjust `MODULES` settings in [settings.py](settings.py) to load the software applications needed by the benchmarks.
+If Environment Modules are not installed, one should adjust the `command` inside benchmark configs to load required libraries.
+
+5. Adjust [HPL configs](benchmarks/hpl/cases.json). Use the below links to generate the initial configs.
     - http://www.advancedclustering.com/act_kb/tune-hpl-dat-file
     - http://hpl-calculator.sourceforge.net/
 
-10. Prepare the benchmark cases
 
+## Execution
+
+1. Prepare the benchmark cases. This creates cases directories, job script files and cases input files.
     ```bash
         exabench --prepare                              # prepares all cases
         exabench --prepare --type hpl --type vasp       # prepares only hpl and vasp cases
         exabench --prepare --name hpl-01 --name hpl-02  # prepares only hpl-{01,02} cases
     ```
 
-11. Run the cases and wait for them to finish
-
+2. Run the cases and wait for them to finish. Use `qstat` command to monitor the progress if available.
     ```bash
         exabench --execute                 # execute all cases
         exabench --execute --type hpl      # execute only hpl cases
         exabench --execute --name hpl-01   # execute only hpl-01 case
     ```
 
-12. Store the results
+3. Store and publish the results
     ```bash
         exabench --results                 # store all results
         exabench --results --type hpl      # store only hpl results
         exabench --results --name hpl-01   # store only hpl-01 results
     ```
 
-13. Plot the results
+4. Plot the results
     ```bash
         exabench --plot --metric PerformancePerCore  # compare all sites
         exabench --plot --metric SpeedupRatio --site-name AWS-NHT --site-name AZURE-IB-H  # compare given sites
     ```
 
-12. Plot the results
-    ```bash
-        python run.py --plot --metric PerformancePerCore  # compare all sites
-        python run.py --plot --metric SpeedupRatio --site-name AWS-NHT --site-name AZURE-IB-H  # compare given sites
-    ```
+### Results
 
-## Contribute
+Benchmark results are stored in the [local cache](results/results.json) and are also published to this [Google Spreadsheet](https://docs.google.com/spreadsheets/d/1oBHR8bp9q86MOxGYXcvUWHZa8KiC-uc_qX-UF1iqf-Y/edit) with the format specified in the [schema](results/schema.json) file (one-level dictionary with no nested keys). 
+Set `PUBLISH_RESULTS` to `False` in [settings.py](settings.py) to disable publishing results to Google Spreadsheet. 
 
-This is an open-source repository and we welcome contributions for other test cases. 
-We suggest forking this repository and introducing the adjustments there. 
-The changes in the fork can further be considered for merging into this repository as it is commonly used on Github. 
+## Contribution
+
+This is an open-source repository and we welcome contributions for other test cases.
+We suggest forking this repository and introducing the adjustments there.
+The changes in the fork can further be considered for merging into this repository as it is commonly used on Github.
 This process is explained in more details [here](https://gist.github.com/Chaser324/ce0505fbed06b947d962).
 
-### How to add a new HPL case
+### Adding New Cases
 
-1. Open [hpl.json](cases/hpl.json) file and add the HPL config for the new case.
+This section explains how to add new benchmark cases.
 
-### How to add a new VASP case
+#### HPL
+
+1. Open [HPL cases](benchmarks/hpl/cases.json) file and add the HPL config for the new case.
+
+#### VASP
 
 1. Put the POSCAR into the [POSCARS](benchmarks/vasp/POSCARS) directory or reuse existing ones
 
 2. Put the INCAR into the [templates](benchmarks/vasp/templates) directory or reuse existing ones
 
-3. Create a config as below and add it to the [CASES](cases/__init__.py).
+3. Create a config as below and add it to [VASP CASES](benchmarks/vasp/cases.py).
 
     ```json
     {
@@ -181,11 +175,11 @@ This process is explained in more details [here](https://gist.github.com/Chaser3
 
 6. Adjust `kgrid` as necessary. The object is passed to `KPOINTS` template specified in `inputs` to create KPOINTS file. Adjust `KPOINTS` template or add new ones for extra parameters.
 
-### How to add a new GROMACS case 
+#### GROMACS
 
 1. Put the tpr file into the [inputs](benchmarks/gromacs/inputs) directory or reuse existing ones
 
-2. Create a config as below and add it to the [CASES](cases/__init__.py)
+2. Create a config as below and add it to [GROMACS CASES](benchmarks/gromacs/cases.py)
 
     ```json
     {
@@ -206,76 +200,10 @@ This process is explained in more details [here](https://gist.github.com/Chaser3
     }
     ```
 
-### How to add a new metric
+### New Metrics
 
 1. Create a class inside [metrics](metrics) package and inherit it from base [Metric](metrics/__init__.py) class, e.g. [PerformancePerCore](metrics/performance_per_core.py).
 
-2. Implement `config` and `plot` methods as necessary
+2. Implement `config` and `plot` methods accordingly.
 
-
-### Results Schema
-
-<<<<<<< HEAD
-The following shows the schema to store the results. Results have to be stored on one-level dictionary (no nested key) so that it can be easily flattened.
-=======
-The following shows the schema to store the results. Results have to be stored in one-level dictionary (no nested keys) so that it can be easily flattened.
->>>>>>> Code review comments
-
-```json
-{
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "type": "object",
-    "properties": {
-        "siteName": {
-            "description": "Site name, e.g. AWS-NHT",
-            "type": "string"
-        },
-        "siteLocation": {
-            "description": "Site location, e.g. West Us",
-            "type": "string"
-        },
-        "type": {
-            "description": "Benchmark type, e.g. hpl",
-            "type": "string"
-        },
-        "case": {
-            "description": "Benchmark case, e.g. hpl-01",
-            "type": "string"
-        },
-        "nodes": {
-            "description": "Number of nodes used for the case",
-            "type": "number"
-        },
-        "ppn": {
-            "description": "Number of cores per node used for the case",
-            "type": "number"
-        },
-        "runtime": {
-            "description": "Benchmark runtime",
-            "type": "number"
-        },
-        "memory": {
-            "description": "Compute node total memory",
-            "type": "number"
-        },
-        "cpuModel": {
-            "description": "Compute node CPU model. e.g. Intel(R) Xeon(R) CPU E5-2666 v3 @ 2.90GHz",
-            "type": "string"
-        },
-        "createdAt": {
-            "description": "Benchmark creation time",
-            "type": "string"
-        }
-    }
-}
-```
-
-## Publishing Results
-
-<<<<<<< HEAD
-Benchmarks results are automatically published to [Google Spreadsheets](https://docs.google.com/spreadsheets/d/1oBHR8bp9q86MOxGYXcvUWHZa8KiC-uc_qX-UF1iqf-Y/edit) when `python run.py --results` is invoked. Set `PUBLISH_RESULTS` to `False` in [settings.py](settings.py) to disable the feature.
-Please note that the data stored in the Google Spreadsheets is row and may not be accurate. We will clean up the data and assert the data integrity. To do so we may ask the sites to facilitate our access to run the benchmarks.
-=======
-Benchmarks results are automatically published to [Google Spreadsheets](https://docs.google.com/spreadsheets/d/1oBHR8bp9q86MOxGYXcvUWHZa8KiC-uc_qX-UF1iqf-Y/edit) when `exabench --results` is invoked. Set `PUBLISH_RESULTS` to `False` in [settings.py](settings.py) to disable the feature.
-Please note that the data stored in the Google Spreadsheets is raw and may not be accurate.
->>>>>>> Code review comments
+3. Register the new metric inside [METRICS_REGISTRY](settings.py).
