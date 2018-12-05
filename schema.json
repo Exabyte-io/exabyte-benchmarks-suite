@@ -1,0 +1,46 @@
+{
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "type": "object",
+    "properties": {
+        "siteName": {
+            "description": "Site name, e.g. AWS-NHT",
+            "type": "string"
+        },
+        "siteLocation": {
+            "description": "Site location, e.g. West Us",
+            "type": "string"
+        },
+        "type": {
+            "description": "Benchmark type, e.g. hpl",
+            "type": "string"
+        },
+        "case": {
+            "description": "Benchmark case, e.g. hpl-01",
+            "type": "string"
+        },
+        "nodes": {
+            "description": "Number of nodes used for the case",
+            "type": "number"
+        },
+        "ppn": {
+            "description": "Number of cores per node used for the case",
+            "type": "number"
+        },
+        "runtime": {
+            "description": "Benchmark runtime",
+            "type": "number"
+        },
+        "memory": {
+            "description": "Compute node total memory",
+            "type": "number"
+        },
+        "cpuModel": {
+            "description": "Compute node CPU model. e.g. Intel(R) Xeon(R) CPU E5-2666 v3 @ 2.90GHz",
+            "type": "string"
+        },
+        "createdAt": {
+            "description": "Benchmark creation time",
+            "type": "string"
+        }
+    }
+}

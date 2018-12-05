@@ -17,7 +17,6 @@ Readers are welcome to submit their contributions for other hardware and softwar
 
 ## Requirements
 
-
 It is assumed that the benchmarks are executed on a computing cluster containing a resource management system (RMS) such as Torque/PBS (supported by default). In order to support other RMS such as SLURM or LSF, users can follow the explanation in [Configuration](#configuration) section below.
 
 By default, [Environment Modules](http://modules.sourceforge.net/) are used to load the software applications needed by the benchmarks.
@@ -67,7 +66,6 @@ If Environment Modules are not installed, one should adjust the `command` inside
 5. Adjust [HPL configs](benchmarks/hpl/cases.json). Use the below links to generate the initial configs.
     - http://www.advancedclustering.com/act_kb/tune-hpl-dat-file
     - http://hpl-calculator.sourceforge.net/
-
 
 ## Execution
 

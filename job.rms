@@ -1,5 +1,8 @@
 #!/bin/bash
 
+## Below are resource manager directives.
+## Replace them with directives for your system (e.g. #SBATCH), if needed.
+
 #PBS -N {{ NAME }}
 #PBS -j oe
 #PBS -R n
@@ -11,16 +14,23 @@
 #PBS -m {{ NOTIFY }}
 #PBS -M {{ EMAIL }}
 
-module add {{ MODULE }}
 cd $PBS_O_WORKDIR
+
+## The use of environment modules is assumed below.
+## Replace the directive with your system convention if modules are not installed.
+
+module add {{ MODULE }}
+
+## DO NOT MODIFY LINES BELOW HERE
 
 start=`date +%s`
 
 {{ COMMAND }}
 
+## Store benchmark runtime
 end=`date +%s`
 echo $((end-start)) > {{ RUNTIME_FILE }}
 
-# This is to keep track of underlying hardware
+## Store CPU and Memory information
 cat /proc/cpuinfo > {{ CPU_INFO_FILE }}
 cat /proc/meminfo > {{ MEM_INFO_FILE }}
