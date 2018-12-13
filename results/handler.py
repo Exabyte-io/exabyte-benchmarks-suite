@@ -11,7 +11,7 @@ class ResultsHandler(object):
     """
 
     def store(self, results):
-        results = [r for r in results if r["runtime"]]
+        results = [r for r in results if r["runtime"] != "-"]
         self.store_results_in_local_source(results)
         if PUBLISH_RESULTS: self.store_results_in_remote_source(results)
 
@@ -32,12 +32,12 @@ class ResultsHandler(object):
         """
         Stores results locally on RESULTS_FILE_PATH as JSON.
         """
-        with open(RESULTS_FILE_PATH, "r+") as f:
+        with open(RESULTS_FILE_PATH) as f:
             all_results = json.loads(f.read() or "[]")
             for result in results:
                 all_results = [r for r in all_results if not self.are_results_equal(r, result)]
                 all_results.append(result)
-            f.seek(0)
+        with open(RESULTS_FILE_PATH, "w+") as f:
             f.write(json.dumps(all_results, indent=4))
 
     def store_results_in_remote_source(self, results):
