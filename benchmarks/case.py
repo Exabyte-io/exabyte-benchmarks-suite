@@ -167,7 +167,7 @@ class Case(object):
             dict
         """
         results_ = {
-            "siteName": "-".join((SITE_NAME, uuid.getnode())),
+            "siteName": "-".join((SITE_NAME, str(uuid.getnode()))),
             "siteLocation": SITE_LOCATION,
             "type": self.config["type"],
             "name": self.name,
