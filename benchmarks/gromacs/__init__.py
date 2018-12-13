@@ -4,8 +4,8 @@ from benchmarks.utils import read, write
 
 
 class GROMACSCase(Case):
-    def __init__(self, name, config, work_dir):
-        super(GROMACSCase, self).__init__(name, config, work_dir)
+    def __init__(self, name, type, config, work_dir):
+        super(GROMACSCase, self).__init__(name, type, config, work_dir)
 
     def _get_default_config(self):
         """

@@ -7,8 +7,8 @@ from settings import HPL_MODULE, HPL_RESULT_REGEX
 
 
 class HPLCase(Case):
-    def __init__(self, name, config, work_dir):
-        super(HPLCase, self).__init__(name, config, work_dir)
+    def __init__(self, name, type, config, work_dir):
+        super(HPLCase, self).__init__(name, type, config, work_dir)
 
     def _get_default_config(self):
         """

@@ -10,16 +10,18 @@ from utils import read, write
 
 
 class Case(object):
-    def __init__(self, name, config, work_dir):
+    def __init__(self, name, type, config, work_dir):
         """
         Base case class.
 
         Args:
             name (str): case name
+            type (str): case type
             config (dict): case config.
             work_dir (str): case working directory.
         """
         self.name = name
+        self.type = type
         self.work_dir = work_dir
         self.stdout = ".".join((self.name, "log"))
         self.stdout_file = os.path.join(self.work_dir, self.stdout)
@@ -147,7 +149,7 @@ class Case(object):
             float
         """
         memory = self.get_match_data(MEM_INFO_FILE, 'MemTotal:\s+([0-9]+)\s+kB')
-        if memory != "-": memory = float(memory) / (1024 ** 2)
+        if memory != "-": memory = int(memory) / (1024 ** 2)
         return memory
 
     def get_cpu_model(self):
@@ -169,7 +171,7 @@ class Case(object):
         results_ = {
             "siteName": "-".join((SITE_NAME, str(uuid.getnode()))),
             "siteLocation": SITE_LOCATION,
-            "type": self.config["type"],
+            "type": self.type,
             "name": self.name,
             "nodes": self.config["nodes"],
             "ppn": self.config["ppn"],
