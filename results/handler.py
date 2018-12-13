@@ -26,7 +26,7 @@ class ResultsHandler(object):
         Returns:
             bool
         """
-        return old["siteName"] != new["siteName"] and old["type"] != new["type"] and old["name"] != new["name"]
+        return old["siteName"] == new["siteName"] and old["type"] == new["type"] and old["name"] == new["name"]
 
     def store_results_in_local_source(self, results):
         """
