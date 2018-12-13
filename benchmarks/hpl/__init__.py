@@ -58,10 +58,10 @@ class HPLCase(Case):
             matches = pattern.findall(content)
             if matches: results = matches[0]
         return {
-            "N": int(results[0]),
-            "NB": int(results[1]),
-            "P": int(results[2]),
-            "Q": int(results[3]),
-            "TIME": float(results[4]),
-            "GFLOPS": float(results[5])
+            "N": self.safely_convert(results[0], int),
+            "NB": self.safely_convert(results[1], int),
+            "P": self.safely_convert(results[2], int),
+            "Q": self.safely_convert(results[3], int),
+            "TIME": self.safely_convert(results[4], float),
+            "GFLOPS": self.safely_convert(results[5], float)
         }

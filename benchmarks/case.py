@@ -115,6 +115,19 @@ class Case(object):
         """
         os.system("cd {}; {} {}".format(self.work_dir, QSUB_COMMAND, RMS_JOB_FILE_NAME))
 
+    def safely_convert(self, value, type_):
+        """
+        Safely convert the value to the given type.
+
+        Args:
+            value (str): value to convert
+            type_: float or int
+        """
+        try:
+            return type_(value)
+        except:
+            return value
+
     def get_runtime(self):
         """
         Returns case runtime.
@@ -122,7 +135,7 @@ class Case(object):
         runtime = "-"
         runtime_file = os.path.join(self.work_dir, RUNTIME_FILE)
         if os.path.exists(runtime_file): runtime = read(runtime_file)
-        return float(runtime.rstrip("\n"))
+        return self.safely_convert(runtime.rstrip("\n"), float)
 
     def get_match_data(self, filename, regex):
         """
