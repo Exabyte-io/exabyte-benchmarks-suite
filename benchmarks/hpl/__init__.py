@@ -62,6 +62,6 @@ class HPLCase(Case):
             "NB": int(results[1]),
             "P": int(results[2]),
             "Q": int(results[3]),
-            "TIME": int(results[4]),
+            "TIME": float(results[4]),
             "GFLOPS": float(results[5])
         }

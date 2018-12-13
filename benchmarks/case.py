@@ -122,7 +122,7 @@ class Case(object):
         runtime = "-"
         runtime_file = os.path.join(self.work_dir, RUNTIME_FILE)
         if os.path.exists(runtime_file): runtime = read(runtime_file)
-        return int(runtime.rstrip("\n"))
+        return float(runtime.rstrip("\n"))
 
     def get_match_data(self, filename, regex):
         """
