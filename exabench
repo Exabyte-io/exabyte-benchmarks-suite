@@ -34,8 +34,10 @@ if __name__ == '__main__':
             if args.names and case["name"] not in args.names: continue
             for input_ in case["config"].get("inputs", []):
                 if input_["template"]: input_["template"] = os.path.join(cwd, input_["template"])
+            config = {"type": case["type"]}
+            config.update(case["config"])
             dir_ = os.path.join(cwd, "benchmarks", case["type"], "cases", case["name"])
-            cases.append(get_class_by_reference(case["reference"])(case["name"], case["config"], dir_))
+            cases.append(get_class_by_reference(case["reference"])(case["name"], config, dir_))
 
         if args.prepare: [case.prepare() for case in cases]
         if args.execute: [case.execute() for case in cases]
