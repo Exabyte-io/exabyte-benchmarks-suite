@@ -1,0 +1,26 @@
+&control
+    calculation = 'scf'
+    pseudo_dir = '{PSEUDO_DIR}'
+/
+&system
+    ecutwfc = 40
+    ecutrho = 200
+    occupations = 'smearing'
+    smearing = 'gaussian'
+    degauss = 0.005
+    ibrav = 2
+    celldm(1) = 10.20
+    nat = 2
+    ntyp = 1
+/
+&electrons
+    mixing_beta = 0.7
+    conv_thr = 1.0d-8
+/
+ATOMIC_SPECIES
+Si  28.08500  {PSEUDO_0}
+ATOMIC_POSITIONS alat
+Si 0.00 0.00 0.00
+Si 0.25 0.25 0.25
+K_POINTS automatic
+6 6 6 1 1 1
