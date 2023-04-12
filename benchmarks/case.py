@@ -6,7 +6,7 @@ from copy import deepcopy
 from jinja2 import Template
 
 from settings import *
-from utils import read, write
+from benchmarks.utils import read, write
 
 
 class Case(object):
