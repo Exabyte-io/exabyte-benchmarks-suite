@@ -23,7 +23,7 @@ RESULTS_FILE_NAME = "results.json"
 RESULTS_FILE_PATH = os.path.join(os.path.dirname(__file__), "results", RESULTS_FILE_NAME)
 
 # Whether to publish the results. Set it to False to disable it.
-PUBLISH_RESULTS = True
+PUBLISH_RESULTS = False
 
 # Google Cloud Function endpoint to send the benchmark results to.
 REMOTE_SOURCE_API_URL = "https://us-central1-exabyte-io.cloudfunctions.net/Exabyte-Benchmarks-Results"
