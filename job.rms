@@ -5,7 +5,6 @@
 
 #PBS -N {{ NAME }}
 #PBS -j oe
-#PBS -R n
 #PBS -r n
 #PBS -q {{ QUEUE }}
 #PBS -l nodes={{ NODES }}
