@@ -3,11 +3,11 @@ import os
 # Name of the site where benchmarks are run. Should not contain space.
 # Should contain the cloud provider, company and cluster name and should be unique to identify the site.
 # Example: "AWS-C5-Exabyte-Cluster007
-SITE_NAME = ""
+SITE_NAME = "AWS-t2.nano-GabrielHare"
 
 # Name of the location where the benchmarks are run. Should contain information about the location of the SITE.
 # Example: "East-US-zone-a"
-SITE_LOCATION = ""
+SITE_LOCATION = "us-west-1b"
 
 # Name of the files to store the benchmark runtime, CPU and Memory info respectively.
 RUNTIME_FILE = "runtime"
@@ -31,10 +31,10 @@ REMOTE_SOURCE_API_URL = "https://us-central1-exabyte-io.cloudfunctions.net/Exaby
 # Resource Management System (RMS) settings for PBS/Torque. Adjust settings to accommodate for other resource managers.
 # http://docs.adaptivecomputing.com/torque/6-1-0/adminGuide/help.htm#topics/torque/2-jobs/submittingManagingJobs.htm
 PPN = 36
-QUEUE = "OF"
+QUEUE = "queue1"
 NOTIFY = "abe"
 WALLTIME = "05:00:00"
-EMAIL = "mohammad@exabyte.io"
+EMAIL = "Gabriel.Archacki.Hare@gmail.com"
 DEFAULT_RMS_CONFIG = {
     "NODES": 1,
     "PPN": PPN,
