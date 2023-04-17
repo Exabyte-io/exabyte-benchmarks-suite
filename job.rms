@@ -5,12 +5,12 @@
 
 #SBATCH --job-name={{ NAME }}
 #SBATCH --no-requeue
-#SBATCH -p {{ QUEUE }}
-#SBATCH -N {{ NODES }}
-#SBATCH -n {{ PPN }}
-#SBATCH -t {{ WALLTIME }}
-#SBATCH -mail-type={{ NOTIFY }}
-#SBATCH -mail-user={{ EMAIL }}
+#SBATCH --partition={{ QUEUE }}
+#SBATCH --nodes={{ NODES }}
+#SBATCH --ntasks-per-node={{ PPN }}
+#SBATCH --time={{ WALLTIME }}
+# #SBATCH --mail-type={{ NOTIFY }}
+# #SBATCH --mail-user={{ EMAIL }}
 
 cd $SLURM_SUBMIT_DIR
 
