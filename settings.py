@@ -48,6 +48,9 @@ DEFAULT_RMS_CONFIG = {
 # Name of qsub command
 QSUB_COMMAND = "sbatch"
 
+# Argument of -np option of mpirun
+PBS_NP = 1
+
 # Environment Modules Settings
 HPL_MODULE = "hpl/22-i-174-impi-044"
 VASP_MODULE = "vasp/535-i-174-impi-044"
