@@ -46,7 +46,7 @@ DEFAULT_RMS_CONFIG = {
 }
 
 # Name of qsub command
-QSUB_COMMAND = "qsub"
+QSUB_COMMAND = "sbatch"
 
 # Environment Modules Settings
 HPL_MODULE = "hpl/22-i-174-impi-044"
