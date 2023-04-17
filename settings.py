@@ -30,7 +30,7 @@ REMOTE_SOURCE_API_URL = "https://us-central1-exabyte-io.cloudfunctions.net/Exaby
 
 # Resource Management System (RMS) settings for PBS/Torque. Adjust settings to accommodate for other resource managers.
 # http://docs.adaptivecomputing.com/torque/6-1-0/adminGuide/help.htm#topics/torque/2-jobs/submittingManagingJobs.htm
-PPN = 36
+PPN = 1
 QUEUE = "queue1"
 NOTIFY = "abe"
 WALLTIME = "05:00:00"
