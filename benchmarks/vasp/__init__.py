@@ -1,6 +1,6 @@
 import os
 
-from settings import VASP_MODULE
+from settings import PBS_NP, VASP_MODULE
 from benchmarks.case import Case
 
 
@@ -18,7 +18,7 @@ class VASPCase(Case):
         default_config = super(VASPCase, self)._get_default_config()
         default_config.update({
             "module": VASP_MODULE,
-            "command": "mpirun -np $PBS_NP vasp &> {}".format(self.stdout),
+            "command": f"mpirun -np {PBS_NP} vasp &> {self.stdout}",
         })
         return default_config
 
