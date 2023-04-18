@@ -19,6 +19,8 @@ cd $SLURM_SUBMIT_DIR
 
 ## DO NOT MODIFY LINES BELOW HERE
 
+module load intelmpi
+
 {{ MODULE }}
 
 start=`date +%s`
