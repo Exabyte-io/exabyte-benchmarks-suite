@@ -17,9 +17,9 @@ cd $SLURM_SUBMIT_DIR
 ## The use of environment modules is assumed below.
 ## Replace the directive with your system convention if modules are not installed.
 
-module add {{ MODULE }}
-
 ## DO NOT MODIFY LINES BELOW HERE
+
+{{ MODULE }}
 
 start=`date +%s`
 

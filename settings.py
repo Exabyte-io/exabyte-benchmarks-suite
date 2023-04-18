@@ -51,11 +51,11 @@ QSUB_COMMAND = "sbatch"
 # Argument of -np option of mpirun
 PBS_NP = 1
 
-# Environment Modules Settings
-HPL_MODULE = "hpl/22-i-174-impi-044"
-VASP_MODULE = "vasp/535-i-174-impi-044"
-ESPRESSO_MODULE = "espresso/540-i-174-impi-044"
-GROMACS_MODULE = "gromacs/20183-i-174-impi-044-md"
+# Environment Settings
+HPL_MODULE = "module add hpl/22-i-174-impi-044"
+VASP_MODULE = "module add vasp/535-i-174-impi-044"
+ESPRESSO_MODULE = "module add espresso/540-i-174-impi-044"
+GROMACS_MODULE = "module add gromacs/20183-i-174-impi-044-md"
 
 # Regular expressions to extract the HPL results (N, NB, P, Q, TIME and GFLOPS)
 REGEX = {
