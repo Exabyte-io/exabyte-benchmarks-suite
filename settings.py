@@ -52,7 +52,8 @@ QSUB_COMMAND = "sbatch"
 PBS_NP = 1
 
 # Environment Settings
-HPL_MODULE = "module add hpl/22-i-174-impi-044"
+HPL_MODULE = "export PATH=$PATH:/home/ubuntu/hpl/bin/linux"
+#HPL_MODULE = "module add hpl/22-i-174-impi-044"
 VASP_MODULE = "module add vasp/535-i-174-impi-044"
 ESPRESSO_MODULE = "module add espresso/540-i-174-impi-044"
 GROMACS_MODULE = "module add gromacs/20183-i-174-impi-044-md"
