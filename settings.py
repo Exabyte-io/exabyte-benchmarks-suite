@@ -48,8 +48,8 @@ DEFAULT_RMS_CONFIG = {
 # Name of qsub command
 QSUB_COMMAND = "sbatch"
 
-# Argument of -np option of mpirun
-PBS_NP = 1
+# Argument of -np option of mpirun - for hpl this must be equal to maximum P*Q
+PBS_NP = 16
 
 # Environment Settings
 HPL_MODULE = "export PATH=$PATH:/home/ubuntu/hpl/bin/linux"
@@ -72,6 +72,6 @@ METRICS_REGISTRY = {
 }
 
 # Specifies nodes and ppn configurations.
-# Cases are generated for all combinations.
+# Cases are generated for gromacs and vasp all combinations.
 NODES_CONFIGURATION = [1, 2, 4, 8]
 PPN_CONFIGURATION = [4, 8, 12, 16]
