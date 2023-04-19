@@ -48,7 +48,7 @@ DEFAULT_RMS_CONFIG = {
 # Name of qsub command
 QSUB_COMMAND = "sbatch"
 
-# Argument of -np option of mpirun - for hpl this must be equal to maximum P*Q
+# Argument of -np option of mpirun
 PBS_NP = 16
 
 # Environment Settings
