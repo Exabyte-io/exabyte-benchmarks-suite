@@ -3,11 +3,11 @@ import os
 # Name of the site where benchmarks are run. Should not contain space.
 # Should contain the cloud provider, company and cluster name and should be unique to identify the site.
 # Example: "AWS-C5-Exabyte-Cluster007
-SITE_NAME = ""
+SITE_NAME = "AWS-t2.nano-GabrielHare"
 
 # Name of the location where the benchmarks are run. Should contain information about the location of the SITE.
 # Example: "East-US-zone-a"
-SITE_LOCATION = ""
+SITE_LOCATION = "us-west-1b"
 
 # Name of the files to store the benchmark runtime, CPU and Memory info respectively.
 RUNTIME_FILE = "runtime"
@@ -23,18 +23,18 @@ RESULTS_FILE_NAME = "results.json"
 RESULTS_FILE_PATH = os.path.join(os.path.dirname(__file__), "results", RESULTS_FILE_NAME)
 
 # Whether to publish the results. Set it to False to disable it.
-PUBLISH_RESULTS = True
+PUBLISH_RESULTS = False
 
 # Google Cloud Function endpoint to send the benchmark results to.
 REMOTE_SOURCE_API_URL = "https://us-central1-exabyte-io.cloudfunctions.net/Exabyte-Benchmarks-Results"
 
 # Resource Management System (RMS) settings for PBS/Torque. Adjust settings to accommodate for other resource managers.
 # http://docs.adaptivecomputing.com/torque/6-1-0/adminGuide/help.htm#topics/torque/2-jobs/submittingManagingJobs.htm
-PPN = 36
-QUEUE = "OF"
+PPN = 1
+QUEUE = "queue1"
 NOTIFY = "abe"
 WALLTIME = "05:00:00"
-EMAIL = "mohammad@exabyte.io"
+EMAIL = "Gabriel.Archacki.Hare@gmail.com"
 DEFAULT_RMS_CONFIG = {
     "NODES": 1,
     "PPN": PPN,
@@ -46,13 +46,17 @@ DEFAULT_RMS_CONFIG = {
 }
 
 # Name of qsub command
-QSUB_COMMAND = "qsub"
+QSUB_COMMAND = "sbatch"
 
-# Environment Modules Settings
-HPL_MODULE = "hpl/22-i-174-impi-044"
-VASP_MODULE = "vasp/535-i-174-impi-044"
-ESPRESSO_MODULE = "espresso/540-i-174-impi-044"
-GROMACS_MODULE = "gromacs/20183-i-174-impi-044-md"
+# Argument of -np option of mpirun
+PBS_NP = 16
+
+# Environment Settings
+HPL_MODULE = "export PATH=$PATH:/home/ubuntu/hpl/bin/linux"
+#HPL_MODULE = "module add hpl/22-i-174-impi-044"
+VASP_MODULE = "module add vasp/535-i-174-impi-044"
+ESPRESSO_MODULE = "module add espresso/540-i-174-impi-044"
+GROMACS_MODULE = "module add gromacs/20183-i-174-impi-044-md"
 
 # Regular expressions to extract the HPL results (N, NB, P, Q, TIME and GFLOPS)
 REGEX = {
@@ -68,6 +72,6 @@ METRICS_REGISTRY = {
 }
 
 # Specifies nodes and ppn configurations.
-# Cases are generated for all combinations.
+# Cases are generated for gromacs and vasp all combinations.
 NODES_CONFIGURATION = [1, 2, 4, 8]
 PPN_CONFIGURATION = [4, 8, 12, 16]

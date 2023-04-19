@@ -1,6 +1,6 @@
 import os
 
-from settings import NODES_CONFIGURATION, PPN_CONFIGURATION
+from settings import PBS_NP, NODES_CONFIGURATION, PPN_CONFIGURATION
 
 GROMACS_CASES = []
 CWD = os.path.dirname(__file__)
@@ -22,7 +22,7 @@ for input_ in ["model-1", "model-2", "model-3", "model-4"]:
                             "template": "benchmarks/gromacs/inputs/{}/md.tpr".format(input_)
                         }
                     ],
-                    "command": "source GMXRC.bash; mpirun -np $PBS_NP gmx_mpi_d mdrun -ntomp 1 -s md.tpr -deffnm md"
+                    "command": f"source GMXRC.bash; mpirun -np {PBS_NP} gmx_mpi_d mdrun -ntomp 1 -s md.tpr -deffnm md"
                 }
             }
             GROMACS_CASES.append(config)

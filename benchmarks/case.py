@@ -6,7 +6,7 @@ from copy import deepcopy
 from jinja2 import Template
 
 from settings import *
-from utils import read, write
+from benchmarks.utils import read, write
 
 
 class Case(object):
@@ -25,10 +25,10 @@ class Case(object):
         self.work_dir = work_dir
         self.stdout = ".".join((self.name, "log"))
         self.stdout_file = os.path.join(self.work_dir, self.stdout)
-        self.config = deepcopy(self._get_default_config())
+        self.config = deepcopy(self._get_case_config(config))
         self.config.update(config)
 
-    def _get_default_config(self):
+    def _get_case_config(self, config):
         """
         Returns a default config for the case. It will be merged by the passed config.
 

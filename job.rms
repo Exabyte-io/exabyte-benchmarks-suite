@@ -3,25 +3,25 @@
 ## Below are resource manager directives.
 ## Replace them with directives for your system (e.g. #SBATCH), if needed.
 
-#PBS -N {{ NAME }}
-#PBS -j oe
-#PBS -R n
-#PBS -r n
-#PBS -q {{ QUEUE }}
-#PBS -l nodes={{ NODES }}
-#PBS -l ppn={{ PPN }}
-#PBS -l walltime={{ WALLTIME }}
-#PBS -m {{ NOTIFY }}
-#PBS -M {{ EMAIL }}
+#SBATCH --job-name={{ NAME }}
+#SBATCH --no-requeue
+#SBATCH --partition={{ QUEUE }}
+#SBATCH --nodes={{ NODES }}
+#SBATCH --ntasks-per-node={{ PPN }}
+#SBATCH --time={{ WALLTIME }}
+# #SBATCH --mail-type={{ NOTIFY }}
+# #SBATCH --mail-user={{ EMAIL }}
 
-cd $PBS_O_WORKDIR
+cd $SLURM_SUBMIT_DIR
 
 ## The use of environment modules is assumed below.
 ## Replace the directive with your system convention if modules are not installed.
 
-module add {{ MODULE }}
-
 ## DO NOT MODIFY LINES BELOW HERE
+
+module load intelmpi
+
+{{ MODULE }}
 
 start=`date +%s`
 
