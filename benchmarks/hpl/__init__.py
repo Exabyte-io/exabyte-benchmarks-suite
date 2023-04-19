@@ -10,14 +10,14 @@ class HPLCase(Case):
     def __init__(self, name, type, config, work_dir):
         super(HPLCase, self).__init__(name, type, config, work_dir)
 
-    def _get_default_config(self):
+    def _get_case_config(self, config):
         """
         Returns a default config for the case. It will be merged by the passed config.
 
         Returns:
             dict
         """
-        default_config = super(HPLCase, self)._get_default_config()
+        default_config = super(HPLCase, self)._get_case_config(config)
         default_config.update({
             "module": HPL_MODULE,
             "command": f"mpirun -np {PBS_NP} xhpl &> {self.stdout}",
