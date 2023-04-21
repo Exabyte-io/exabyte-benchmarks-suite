@@ -1,7 +1,7 @@
 import os
 
 from benchmarks.case import Case
-from settings import ESPRESSO_MODULE
+from settings import ESPRESSO_ENVIRONMENT
 
 
 class ESPRESSOCase(Case):
@@ -17,7 +17,7 @@ class ESPRESSOCase(Case):
         """
         default_config = super(ESPRESSOCase, self)._get_case_config(config)
         default_config.update({
-            "module": ESPRESSO_MODULE
+            "environment": ESPRESSO_ENVIRONMENT
         })
         return default_config
 

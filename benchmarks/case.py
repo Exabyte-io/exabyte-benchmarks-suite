@@ -59,7 +59,7 @@ class Case(object):
             "WALLTIME": self.config["walltime"],
             "NOTIFY": self.config["notify"],
             "EMAIL": self.config["email"],
-            "MODULE": self.config["module"],
+            "ENVIRONMENT": self.config["environment"],
             "COMMAND": self.config["command"],
             "RUNTIME_FILE": RUNTIME_FILE,
             "CPU_INFO_FILE": CPU_INFO_FILE,

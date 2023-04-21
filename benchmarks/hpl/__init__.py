@@ -3,7 +3,7 @@ import re
 
 from benchmarks.case import Case
 from benchmarks.utils import read
-from settings import HPL_MODULE, HPL_RESULT_REGEX
+from settings import HPL_ENVIRONMENT, HPL_RESULT_REGEX
 
 
 class HPLCase(Case):
@@ -20,7 +20,7 @@ class HPLCase(Case):
         mpirun_np = config.get('P', 1) * config.get('Q', 1)
         default_config = super(HPLCase, self)._get_case_config(config)
         default_config.update({
-            "module": HPL_MODULE,
+            "environment": HPL_ENVIRONMENT,
             "command": f"mpirun -np {mpirun_np} xhpl &> {self.stdout}",
             "inputs": [
                 {

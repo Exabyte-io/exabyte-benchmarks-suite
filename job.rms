@@ -1,7 +1,8 @@
 #!/bin/bash
 
 ## Below are resource manager directives.
-## Replace them with directives for your system (e.g. #SBATCH), if needed.
+## Replace them with directives for your system (e.g. #PBS), if needed.
+# https://slurm.schedmd.com/rosetta.pdf
 
 #SBATCH --job-name={{ NAME }}
 #SBATCH --no-requeue
@@ -9,8 +10,8 @@
 #SBATCH --nodes={{ NODES }}
 #SBATCH --ntasks-per-node={{ PPN }}
 #SBATCH --time={{ WALLTIME }}
-# #SBATCH --mail-type={{ NOTIFY }}
-# #SBATCH --mail-user={{ EMAIL }}
+#SBATCH --mail-type {{ NOTIFY }}
+#SBATCH --mail-user={{ EMAIL }}
 
 cd $SLURM_SUBMIT_DIR
 
@@ -19,9 +20,7 @@ cd $SLURM_SUBMIT_DIR
 
 ## DO NOT MODIFY LINES BELOW HERE
 
-module load intelmpi
-
-{{ MODULE }}
+{{ ENVIRONMENT }}
 
 start=`date +%s`
 
