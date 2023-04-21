@@ -1,6 +1,6 @@
 import os
 
-from settings import VASP_MODULE
+from settings import PBS_NP, VASP_ENVIRONMENT
 from benchmarks.case import Case
 
 
@@ -8,17 +8,17 @@ class VASPCase(Case):
     def __init__(self, name, type, config, work_dir):
         super(VASPCase, self).__init__(name, type, config, work_dir)
 
-    def _get_default_config(self):
+    def _get_case_config(self, config):
         """
         Returns a default config for the case. It will be merged by the passed config.
 
         Returns:
             dict
         """
-        default_config = super(VASPCase, self)._get_default_config()
+        default_config = super(VASPCase, self)._get_case_config(config)
         default_config.update({
-            "module": VASP_MODULE,
-            "command": "mpirun -np $PBS_NP vasp &> {}".format(self.stdout),
+            "environment": VASP_ENVIRONMENT,
+            "command": f"mpirun -np {PBS_NP} vasp &> {self.stdout}",
         })
         return default_config
 

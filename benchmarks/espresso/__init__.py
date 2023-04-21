@@ -1,23 +1,23 @@
 import os
 
 from benchmarks.case import Case
-from settings import ESPRESSO_MODULE
+from settings import ESPRESSO_ENVIRONMENT
 
 
 class ESPRESSOCase(Case):
     def __init__(self, name, type, config, work_dir):
         super(ESPRESSOCase, self).__init__(name, type, config, work_dir)
 
-    def _get_default_config(self):
+    def _get_case_config(self, config):
         """
         Returns a default config for the case. It will be merged by the passed config.
 
         Returns:
             dict
         """
-        default_config = super(ESPRESSOCase, self)._get_default_config()
+        default_config = super(ESPRESSOCase, self)._get_case_config(config)
         default_config.update({
-            "module": ESPRESSO_MODULE
+            "environment": ESPRESSO_ENVIRONMENT
         })
         return default_config
 

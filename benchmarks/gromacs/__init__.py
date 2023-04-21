@@ -1,4 +1,4 @@
-from settings import GROMACS_MODULE
+from settings import GROMACS_ENVIRONMENT
 from benchmarks.case import Case, os
 from benchmarks.utils import read, write
 
@@ -7,16 +7,16 @@ class GROMACSCase(Case):
     def __init__(self, name, type, config, work_dir):
         super(GROMACSCase, self).__init__(name, type, config, work_dir)
 
-    def _get_default_config(self):
+    def _get_case_config(self, config):
         """
         Returns a default config for the case. It will be merged by the passed config.
 
         Returns:
             dict
         """
-        default_config = super(GROMACSCase, self)._get_default_config()
+        default_config = super(GROMACSCase, self)._get_case_config(config)
         default_config.update({
-            "module": GROMACS_MODULE
+            "environment": GROMACS_ENVIRONMENT
         })
         return default_config
 
