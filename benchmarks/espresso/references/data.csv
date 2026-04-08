@@ -1,0 +1,12 @@
+File Name,nproc,Build,nodes,Time (s)
+pw.cuo.scf.gnu.0.out,8,GNU,1,594.28
+pw.cuo.scf.gnu.1.out,16,GNU,1,488.41
+pw.cuo.scf.gnu.2.out,22,GNU,1,295.21
+pw.cuo.scf.gnu.3.out,44,GNU,1,212.08
+pw.cuo.scf.gnu.4.out,44,GNU,2,143.70
+pw.cuo.scf.intel.0.out,8,Intel,1,323.41
+pw.cuo.scf.intel.1.out,16,Intel,1,161.82
+pw.cuo.scf.intel.2.out,22,Intel,1,138.41
+pw.cuo.scf.intel.3.out,44,Intel,1,79.66
+pw.cuo.scf.intel.4.out,44,Intel,2,42.20
+pw.cuo.scf.gpu.0.out,12,CUDA,1,41.81

@@ -3,16 +3,54 @@
 Note that the SCF calculation is terminated after 4 SCF loops
 (`electron_maxstep=4`), see input file `pw.cuo.scf.in` for the details.
 
-File Name              | Description                        | Time (s)
-:--------------------- | :--------------------------------- | -------:
-pw.cuo.scf.gnu.0.out   | GNU Build 8 processors, 1 node     | 594.28
-pw.cuo.scf.gnu.1.out   | GNU Build 16 processors, 1 node    | 488.41
-pw.cuo.scf.gnu.2.out   | GNU Build 22 processors, 1 node    | 295.21
-pw.cuo.scf.gnu.3.out   | GNU Build 44 processors, 1 nodes   | 212.08
-pw.cuo.scf.gnu.4.out   | GNU Build 44 processors, 2 nodes   | 143.70
-pw.cuo.scf.intel.0.out | Intel Build 8 processors, 1 node   | 323.41
-pw.cuo.scf.intel.1.out | Intel Build 16 processors, 1 node  | 161.82
-pw.cuo.scf.intel.2.out | Intel Build 22 processors, 1 node  | 138.41
-pw.cuo.scf.intel.3.out | Intel Build 44 processors, 1 nodes | 79.66
-pw.cuo.scf.intel.4.out | Intel Build 44 processors, 2 nodes | 42.20
-pw.cuo.scf.gpu.0.out   | CUDA Build 12 processors, 1 node   | 41.81
+| File Name              |   nproc | Build   |   nodes |   Time (s) |
+|:-----------------------|--------:|:--------|--------:|-----------:|
+| pw.cuo.scf.gnu.0.out   |       8 | GNU     |       1 |     594.28 |
+| pw.cuo.scf.gnu.1.out   |      16 | GNU     |       1 |     488.41 |
+| pw.cuo.scf.gnu.2.out   |      22 | GNU     |       1 |     295.21 |
+| pw.cuo.scf.gnu.3.out   |      44 | GNU     |       1 |     212.08 |
+| pw.cuo.scf.gnu.4.out   |      44 | GNU     |       2 |     143.7  |
+| pw.cuo.scf.intel.0.out |       8 | Intel   |       1 |     323.41 |
+| pw.cuo.scf.intel.1.out |      16 | Intel   |       1 |     161.82 |
+| pw.cuo.scf.intel.2.out |      22 | Intel   |       1 |     138.41 |
+| pw.cuo.scf.intel.3.out |      44 | Intel   |       1 |      79.66 |
+| pw.cuo.scf.intel.4.out |      44 | Intel   |       2 |      42.2  |
+| pw.cuo.scf.gpu.0.out   |      12 | CUDA    |       1 |      41.81 |
+
+![Time (s) vs number of processors](./plot.png)
+
+# Using Pandas to process the data
+
+```py
+import pandas as pd
+
+# Building first dataframe
+data = {
+    "File Name": ["pw.cuo.scf.gnu.0.out"],
+    "nproc": [8],
+    "Build": ["GNU"],
+    "nodes": [1],
+    "Time (s)": [594.28]
+    }
+df = pd.DataFrame(data)
+
+# Saving dataframe to CSV
+df.to_csv('data.csv', index=False)
+
+# Reading dataframe from CSV
+df = pd.read_csv('data.csv')
+
+# add new data
+data = {
+    "File Name": ["pw.cuo.scf.gnu.1.out"],
+    "nproc": [16],
+    "Build": ["GNU"],
+    "nodes": [1],
+    "Time (s)": [488.41]
+    }
+df = pd.concat([df, pd.DataFrame(data)], ignore_index=True)
+df.to_csv("data.csv", index=False)
+
+# Print markdown table
+print(df.to_markdown(index=False))
+```

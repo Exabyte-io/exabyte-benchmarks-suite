@@ -1,4 +1,5 @@
-jinja2==2.8
-tabulate==0.7.5
-requests==2.20.1
-matplotlib==2.2.3
+jinja2==3.1.6
+matplotlib==3.10.8
+pandas==2.3.3
+requests==2.33.1
+tabulate==0.10.0
